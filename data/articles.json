@@ -1,0 +1,20 @@
+[
+	{
+		"title": "art1",
+		"body": "body 1",
+		"rank": "1",
+		"game": "android"
+	},
+	{
+		"title": "art2",
+		"body": "body 2",
+		"rank": "2",
+		"game": "android"
+	},
+	{
+		"title": "art3",
+		"body": "body 3",
+		"rank": "3",
+		"game": "android"
+	}
+]

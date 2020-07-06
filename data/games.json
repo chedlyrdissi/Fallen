@@ -2,21 +2,25 @@
 	{
 		"image": "https://cdn57.androidauthority.net/wp-content/uploads/2020/04/FortNite-Mobile-video-screenshot-Apps-Weekly.jpg",
 		"title": "android",
-		"price": 3.2
+		"price": 3.2,
+		"rank": 1
 	},
 	{
 		"image": "https://cdn.vox-cdn.com/thumbor/o4Hw4NAddg6Yx78lDuakly14VRw=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19425214/mobile_MarioKartTour_screen_01.png",
 		"title": "mario",
-		"price": 5.2
+		"price": 5.2,
+		"rank": 2
 	},
 	{
 		"image": "https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_wired.png,fl_progressive,g_face,h_450,q_80,w_800/v1576859342/wired_top-videogames-in-the-last-50-years.jpg",
 		"title": "doom",
-		"price": 70
+		"price": 70,
+		"rank": 3
 	},
 	{
 		"image": "https://cdn.vox-cdn.com/thumbor/J7TeX-vsd-iyrQUj4Zj04AJpWv0=/0x0:1024x576/1200x800/filters:focal(431x207:593x369)/cdn.vox-cdn.com/uploads/chorus_image/image/66496903/Switch_PokemonSwordPokemonShield_screen_198.0.jpg",
 		"title": "house",
-		"price": 50
+		"price": 50,
+		"rank": 4
 	}
 ]

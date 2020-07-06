@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-// import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from 'react-bootstrap/Card';
 import CreditCard from './../common/credit-card/credit-card.component';
@@ -18,7 +16,10 @@ class Payment extends Component {
   	constructor(props) {
   		super(props);
 	    this.state = {
-	      	activeStep: 0
+	      	activeStep: 0,
+	      	game: {},
+	      	discount: 0,
+	      	loading: true
 	    };
 	    this.classes = makeStyles((theme) => ({
 		  	root: {
@@ -32,28 +33,41 @@ class Payment extends Component {
 		    	marginBottom: theme.spacing(1),
 		  	},
 		}));
+
+		const requestOptions = {
+	        method: 'GET',
+	        params: {          	
+	        	title: this.props.match.params.title
+	        }
+	    };
+	    fetch('http://192.168.137.1:4000/payment/'+this.props.match.params.title, requestOptions)
+	    .then(response => response.json())
+	    .then((data) => {
+	    	console.log(data);
+	        this.setState(
+	        	{
+	        		loading: false, 
+	        		game: data.game, 
+	        		discount: data.discount
+	        	}
+	        );
+	    });
   	}
 
   	handleNext = () => {
-  		console.log(this.state.activeStep);
+  		// console.log(this.state.activeStep);
   		this.setState({ activeStep: this.state.activeStep + 1 });
 	};
 
 	handleBack = () => {
-  		console.log(this.state.activeStep);
+  		// console.log(this.state.activeStep);
 	   	this.setState({ activeStep: this.state.activeStep - 1 });
-	};
-
-	handleReset = () => {
-  		console.log(this.state.activeStep);
-
-		this.setState({ activeStep: 0 });
 	};
 
   	getStepContent() {
 		switch (this.state.activeStep) {
 		    case 0:
-		      return <GamePrice next={this.handleNext} />;
+		      return <GamePrice next={this.handleNext} game={this.state.game} discount={this.state.discount}/>;
 		    case 1:
 		      return <CreditCard next={this.handleNext} previous={this.handleBack}/>;
 		    case 2:
@@ -64,29 +78,33 @@ class Payment extends Component {
 	}
 	
 	render() {
-		return (
-			<div className="container">
-				<div className="row m-5">
-					<HomeButton/>
+		if ( this.state.loading ) {
+			return (<h3>Loading page</h3>);
+		} else {
+			return (
+				<div className="container">
+					<div className="row m-5">
+						<HomeButton/>
+					</div>
+					<div className="row justify-content-center">
+						<Card>
+							<Card.Header>
+								<Stepper activeStep={this.state.activeStep} alternativeLabel>
+							        {this.steps.map((label, index) => (
+							          	<Step key={index}>
+							            	<StepLabel>{label}</StepLabel>
+							          	</Step>
+							        ))}
+							    </Stepper>
+							</Card.Header>
+						  	<Card.Body className="text-center">
+						  		{this.getStepContent()}
+						  	</Card.Body>
+						</Card>
+					</div>
 				</div>
-				<div className="row justify-content-center">
-					<Card>
-						<Card.Header>
-							<Stepper activeStep={this.state.activeStep} alternativeLabel>
-						        {this.steps.map((label, index) => (
-						          	<Step key={index}>
-						            	<StepLabel>{label}</StepLabel>
-						          	</Step>
-						        ))}
-						    </Stepper>
-						</Card.Header>
-					  	<Card.Body className="text-center">
-					  		{this.getStepContent()}
-					  	</Card.Body>
-					</Card>
-				</div>
-			</div>
-		);
+			);
+		}
 	}
 }
 

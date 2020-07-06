@@ -3,30 +3,46 @@ import HomeButton from './../common/home-button/home-button.component';
 import Article from './../common/article/article.component';
 
 class ArticlePage extends Component {
-	constructor(props) {
+
+	state = {
+		loading: true,
+      	game: {},
+      	article: {}
+	};
+
+	constructor(props) {		
 		super(props);
-		this.state = {
-	      	isLoaded: false,
-	      	items: []
-	    };
-		console.log(props.match.params.id);
+		// console.log(props.match.params.id);
+		const requestOptions = {
+	        method: 'GET',
+	        params: {
+	        	title: this.props.match.params.title
+	        }
+    	};
+        fetch('http://192.168.137.1:4000/article/'+this.props.match.params.title, requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+        	console.log(data);
+        	this.setState({loading: false, game: data.game, article: data.article});
+        	// this.state.list = data.games;
+        });
 	}
 
 	render() {
-		return (
-			<div>
-				<div className="row">
-					<HomeButton />
+		if (this.state.loading) {
+			return (<h3>Loading...</h3>);
+		} else {	
+			return (
+				<div>
+					<div className="row ml-3">
+						<HomeButton />
+					</div>
+					<div className="row m-3">
+						<Article game={this.state.game}	article={this.state.article}/>
+					</div>
 				</div>
-				<div className="row">
-					<Article 
-						gameRank="2"
-						game={ {title: 'game title', price: 30.40, image: 'https://cutewallpaper.org/21/gaming-logo-background/Download-for-free-10-PNG-Gamer-logo-transparent-background-.jpg'} }
-						article={ {title: 'article title', body: 'bejabonlevnanvklaenlkvnalknvk;aenvpk;anlvbnaejobn vlkaenlkvnaelkfnlkaenlknealkgnakjbgajnlkjn aelknfaeolinjgolk angkj naeoihgapjg pajeglkmna;lng ae bna nsnj rsknksbrn  oihs p jgpisrnjnbg sonoikrsn  onsr oinbsnhlknsoln olik slrn jobsjkbsjknrglkn sogj posrjgp ', rank: 65} }
-					/>
-				</div>
-			</div>
-		);
+			);
+		}
 	}
 }
 

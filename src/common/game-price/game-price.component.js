@@ -23,19 +23,19 @@ class GamePrice extends Component {
           <div className="row">
             <div className="col-5">
               <div className="row center-text m-auto">
-                <img alt="" className="game-price-icon" src={this.state.game.image}/>
+                <img alt="" className="game-price-icon" src={this.props.game.image}/>
               </div>
               <div className="row center-text mt-3">
-                {this.state.game.title}
+                {this.props.game.title}
               </div>
               <div className="row center-text mt-3">
-                {this.state.game.price + ' $'}            
+                {this.props.game.price + ' $'}            
               </div>
             </div>
             <div className="col-7 self-center">
               <div className="row text-center">
                 <div className="col-7">original price</div>
-                <div className="col-5">{this.state.game.price + ' $'}</div>
+                <div className="col-5">{this.props.game.price + ' $'}</div>
               </div>
 
               <div className="row  text-center">
@@ -45,12 +45,7 @@ class GamePrice extends Component {
 
               <div className="row  text-center">
                 <div className="col-7">discount</div>
-                <div className="col-5">{this.state.discount + ' $'}</div>
-              </div>
-
-              <div className="row  text-center">
-                <div className="col-7">discount</div>
-                <div className="col-5">{this.state.discount + ' $'}</div>
+                <div className="col-5">{this.props.discount + ' $'}</div>
               </div>
 
               <hr/>
@@ -62,7 +57,7 @@ class GamePrice extends Component {
 
               <div className="row  text-center">
                 <div className="col-7">final price</div>
-                <div className="col-5">{ (this.state.game.price - this.state.discount) + ' $'}}</div>
+                <div className="col-5">{ (( (this.props.game.price - this.props.discount) >= 0 )? (this.props.game.price - this.props.discount): 0)+ ' $'}</div>
               </div>
             </div>
           </div>

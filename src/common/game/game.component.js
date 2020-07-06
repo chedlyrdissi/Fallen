@@ -28,7 +28,9 @@ class Game extends Component {
 				    <Link to={'/payment/' + this.props.title}>
 				    	<Button className="btn btn-margin" variant="primary" onClick={this.buyClick}>Buy</Button><br/>
 				    </Link>
-				    <Button variant="primary" onClick={this.articlesClick}>Related <br/> articles</Button>
+				    <Link to={'/search/' + this.props.title}>
+				    	<Button variant="primary" onClick={this.articlesClick}>Related <br/> articles</Button>
+				    </Link>
 			  	</Card.Body>
 			</Card>
 		);

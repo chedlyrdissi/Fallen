@@ -23,7 +23,7 @@ class Articles extends Component {
 			      	<td>{art.title}</td>
 			      	<td>{art.rank}</td>
 			      	<td>
-			      		<Link to={'/search/' + art.id}>
+			      		<Link to={'/article/' + art.title}>
 			      			<button className="btn btn-outline-primary" target={art.title}>Read Article</button>
 			      		</Link>
 			      	</td>

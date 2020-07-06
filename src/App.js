@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 import routes from './routes';
 
@@ -17,13 +17,13 @@ import Payment from './pages/payment';
 function App() {
   return (
     <BrowserRouter>
-      <Header/>
+      <Header style={{height: '60px'}}/>
       <Route exact path="/" component={Home}/>
-      <Route exact path={'/' + routes.ARTICLE+'/:id'} component={ArticlePage}/>
-      <Route exact path={'/' + routes.GAME} component={GamePrice}/>
+      <Route exact path={'/' + routes.ARTICLE+'/:title'} component={ArticlePage}/>
       <Route exact path={'/' + routes.PAYMENT + '/:title'} component={Payment}/>
-      <Route exact path={'/' + routes.CREDIT_CARD} component={CreditCard}/>
       <Route exact path={'/' + routes.SEARCH + '/:title'} component={Search}/>
+      <Route path='*' exact={true}/>
+      <Redirect from='*' to='/' />
     </BrowserRouter>
   );
 }

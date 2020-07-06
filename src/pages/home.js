@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import axios from "axios";
-
 import SearchBar from './../common/search-bar/search-bar.component';
 import GameGallery from './../common/game-gallery/game-gallery.component';
 
@@ -17,11 +15,10 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
-		// this.getTodos();
+
 	}
 
 	async getTodos() {
-		
         const requestOptions = {
 	        method: 'GET'
     	};

@@ -20,16 +20,38 @@ class CreditCard extends Component {
 			var im = new Inputmask("12");
 			im.mask(document.getElementById("paymentMonth"));
 
+			var validMap = {
+				"cardNum": false,
+				"cvvNum": false,
+				"nameFieldPayment": false,
+				"paymentYear": false,
+				"paymentMonth": false,				
+			};
+
+			function updateButton() {
+				for (let i in validMap) {
+					if ( !validMap[i] ) {
+						$("#creditCardNext").prop('disabled', true);
+						return;
+					}
+				}
+				$("#creditCardNext").prop('disabled', false);
+			}
+
+
 			$("#cardNum").on('input', function(){
 		    	if (this.value == '' ||
 		    		this.value.includes("_") ||
 		    		isNaN(this.value.replace(/ /g, ''))) {
 		    		$("#cardNum").removeClass("is-valid");
 		    		$("#cardNum").addClass("is-invalid");
+		    		validMap["cardNum"] = false;
 		    	} else {
 		    		$("#cardNum").removeClass("is-invalid");
 		    		$("#cardNum").addClass("is-valid");
+		    		validMap["cardNum"] = true;
 		    	}
+		    	updateButton();
 		    });
 		    $("#cvvNum").on('input', function(){
 		    	if (this.value == '' ||
@@ -40,19 +62,25 @@ class CreditCard extends Component {
 		    		this.value.length !== 3) {
 		    		$("#cvvNum").removeClass("is-valid");
 		    		$("#cvvNum").addClass("is-invalid");
+		    		validMap["cvvNum"] = false;
 		    	} else {
 		    		$("#cvvNum").removeClass("is-invalid");
 		    		$("#cvvNum").addClass("is-valid");
+		    		validMap["cvvNum"] = true;
 		    	}
+		    	updateButton();
 		    });
 		    $("#nameFieldPayment").on('input', function(){
 		    	if (this.value == '') {
 		    		$("#nameFieldPayment").removeClass("is-valid");
 		    		$("#nameFieldPayment").addClass("is-invalid");
+		    		validMap["nameFieldPayment"] = false;
 		    	} else {
 		    		$("#nameFieldPayment").removeClass("is-invalid");
 		    		$("#nameFieldPayment").addClass("is-valid");
+		    		validMap["nameFieldPayment"] = true;
 		    	}
+		    	updateButton();
 		    });
 		    $("#paymentYear").on('input', function(){
 		    	if (this.value == '' ||
@@ -60,10 +88,13 @@ class CreditCard extends Component {
 		    		parseInt(this.value) < 2020) {
 		    		$("#paymentYear").removeClass("is-valid");
 		    		$("#paymentYear").addClass("is-invalid");
+		    		validMap["paymentYear"] = false;
 		    	} else {
 		    		$("#paymentYear").removeClass("is-invalid");
 		    		$("#paymentYear").addClass("is-valid");
+		    		validMap["paymentYear"] = true;
 		    	}
+		    	updateButton();
 		    });
 		    $("#paymentMonth").on('input', function(){
 		    	if (this.value == '' ||
@@ -71,11 +102,15 @@ class CreditCard extends Component {
 		    		parseInt(this.value) < 0) {
 		    		$("#paymentMonth").removeClass("is-valid");
 		    		$("#paymentMonth").addClass("is-invalid");
+		    		validMap["paymentMonth"] = false;
 		    	} else {
 		    		$("#paymentMonth").removeClass("is-invalid");
 		    		$("#paymentMonth").addClass("is-valid");
+		    		validMap["paymentMonth"] = true;
 		    	}
+		    	updateButton();
 		    });
+		    $("#creditCardNext").prop('disabled', true);
 		});
 	}
 
@@ -126,7 +161,7 @@ class CreditCard extends Component {
                         	<button className="btn btn-outline-success" onClick={this.props.previous}><span className="fa fa-angle-left mr-3"/>Previous</button>	
                     	</div>
                     	<div className="col text-right">
-                    		<button className="btn btn-outline-success" onClick={this.props.next}>Next<span className="fa fa-angle-right ml-3"/></button>
+                    		<button id="creditCardNext" className="btn btn-outline-success" onClick={this.props.next}>Next<span className="fa fa-angle-right ml-3"/></button>
                     	</div>
                     </div>
                 </Card.Footer>
