@@ -1,0 +1,11 @@
+img.game-price-icon {
+	width: 50%;
+}
+
+.center-text {
+	place-content: center;
+}
+
+.self-center {
+	place-self: center;
+}

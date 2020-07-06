@@ -1,0 +1,28 @@
+.group{
+	position: relative;
+	padding:10px;
+	border:2px solid;
+	margin:10px;
+}
+
+.group>label{
+	position:absolute;
+	top:-14px;
+	left:50px;
+	background-color:white;
+}
+
+.group>div{
+	border:none;
+}
+
+.game-article-icon {
+	height: 50px;
+	width: 50px;
+	filter: contrast(2);
+	background-color: transparent;
+}
+
+.lowered {
+	margin-top: 15px;
+}

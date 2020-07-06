@@ -1,0 +1,21 @@
+img.gallery-icon {
+	height: 8.3%;
+	width: 100%;
+}
+
+.group{
+	position: relative;
+	padding:10px;
+	border:2px solid;
+	margin:10px;
+}
+.group>label{
+	position:absolute;
+	top:-14px;
+	left:50px;
+	background-color:white;
+}
+
+.group>div{
+	border:none;
+}

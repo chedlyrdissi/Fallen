@@ -1,0 +1,24 @@
+.header {
+  height: 100px;
+  margin: 0px;
+}
+
+img.logo {
+  filter: contrast(2);
+  height: 100px;
+  width: 100px
+}
+
+img.user-icon {
+  height: 50px;
+  width: 50px;  
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  margin-right: 0px !important;;
+}

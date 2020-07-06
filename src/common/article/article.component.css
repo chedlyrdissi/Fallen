@@ -1,0 +1,20 @@
+.container {
+	margin: 0px !important;
+}
+
+.centered {
+	place-content: center !important;
+}
+
+.text-left {
+	float: left;
+}
+
+.text-right {
+	float: right;
+}
+
+img.article-image {
+	filter: contrast(2);
+	width: 80%;
+}
