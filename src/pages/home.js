@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from './../common/search-bar/search-bar.component';
 import GameGallery from './../common/game-gallery/game-gallery.component';
+import Language from '../common/language';
 
 class Home extends Component {
 
@@ -25,7 +26,7 @@ class Home extends Component {
         fetch('http://192.168.137.1:4000/home',requestOptions)
         .then(response => response.json())
         .then((data) => {
-        	console.log(data);
+        	// console.log(data);
         	this.setState({loading: false, list: data.games});
         	// this.state.list = data.games;
         });
@@ -33,11 +34,11 @@ class Home extends Component {
 
 	render() {
 		if ( this.state.loading ) {
-			return <h3>Loading</h3>
+			return <h3>{Language.getTextByCode('LOADING')}...</h3>
 		} else {
 			return (
-				<div className="container">
-					<div className="row">
+				<div className="container-fluid home-container">
+					<div className="row my-5 mx-5">
 						<SearchBar />
 					</div>
 					

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import Language from '../language';
+
 import './article.component.css'
 
 class Article extends Component {
 
 	buyClick = (e) => {
-		console.log("buy");
+		// console.log("buy");
 	};
 
 	render() {
@@ -25,16 +27,16 @@ class Article extends Component {
 						</div>
 						<div className="row centered">
 							<Link to={'/payment/'+this.props.game.title}>
-						    	<button className="btn btn-outline-primary btn-margin" onClick={this.buyClick}>Buy</button>
+						    	<button className="btn btn-outline-primary btn-margin" onClick={this.buyClick}>{Language.getTextByCode('BUY')}</button>
 							</Link>
 						</div>
 						<div className="row centered">
-							Game Rank: <br/> {this.props.game.rank}
+							{Language.getTextByCode('GAME_RANK')}: <br/> {this.props.game.rank}
 						</div>
 					</div>
 					<div className="col col-10 text-left">
 						<Card style={{height: '100%'}}>
-							<Card.Header><span className="text-left">{this.props.article.title}</span> <span className="text-right">Article Rank: {this.props.article.rank}</span></Card.Header>
+							<Card.Header><span className="text-left">{this.props.article.title}</span> <span className="text-right">{Language.getTextByCode('ARTICLE_RANK')}: {this.props.article.rank}</span></Card.Header>
 						  	<Card.Body>
 						    	<Card.Text>
 						    		{this.props.article.body}

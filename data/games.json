@@ -22,5 +22,17 @@
 		"title": "house",
 		"price": 50,
 		"rank": 4
+	},
+	{
+		"image": "https://static01.nyt.com/images/2018/11/01/technology/personaltech/1techtipART_01/24techtipART_01-superJumbo.jpg",
+		"title": "sonic",
+		"price": 5.2,
+		"rank": 5
+	},
+	{
+		"image": "https://localtvwiti.files.wordpress.com/2015/08/s035427928-300.jpg?quality=85&strip=all&resize=1200,1050",
+		"title": "mario boxing",
+		"price": 8,
+		"rank": 6
 	}
 ]

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Articles from '../common/articles/articles.component';
 import HomeButton from '../common/home-button/home-button.component';
 import GameGallery from '../common/game-gallery/game-gallery.component';
+import Language from '../common/language';
 
 class Search extends Component {
 
@@ -35,18 +36,18 @@ class Search extends Component {
 
 	render() {
 		if ( this.state.loading ) {
-			return (<h3>Loading ... </h3>);
+			return (<h3>{Language.getTextByCode('LOADING')}... </h3>);
 		} else {
 			let art;
 			if (this.state.articles.length === 0) {
-				art = (<h3>No articles found by the search were found</h3>);
+				art = (<h3>{Language.getTextByCode('NO_ARTICLES_FOUND')}</h3>);
 			} else {
 				art = (<Articles className="container" articles={this.state.articles}/>);
 			}
 
 			let games;
 			if (this.state.games.length === 0) {
-				games = (<h3>No games found by the search were found</h3>);
+				games = (<h3>{Language.getTextByCode('NO_GAMES_FOUND')}</h3>);
 			} else {
 				games = (<GameGallery list={this.state.games} />);
 			}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 import routes from './routes';
 
@@ -10,22 +10,28 @@ import Home from './pages/home';
 import Search from './pages/search';
 import ArticlePage from './pages/article-page';
 // import NotFound from './pages/not-found';
-import GamePrice from './common/game-price/game-price.component';
-import CreditCard from './common/credit-card/credit-card.component';
 import Payment from './pages/payment';
+import LogIn from './common/log-in/log-in.component';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Header style={{height: '60px'}}/>
-      <Route exact path="/" component={Home}/>
-      <Route exact path={'/' + routes.ARTICLE+'/:title'} component={ArticlePage}/>
-      <Route exact path={'/' + routes.PAYMENT + '/:title'} component={Payment}/>
-      <Route exact path={'/' + routes.SEARCH + '/:title'} component={Search}/>
-      <Route path='*' exact={true}/>
-      <Redirect from='*' to='/' />
-    </BrowserRouter>
-  );
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Header className=""/>
+        <div className=" text-center place-content-center">
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route exact path={'/' + routes.ARTICLE+'/:title'} component={ArticlePage}/>
+            <Route exact path={'/' + routes.PAYMENT + '/:title'} component={Payment}/>
+            <Route exact path={'/' + routes.SEARCH + '/:title'} component={Search}/>
+            <Route exact path="/log-in" component={LogIn}/>
+            <Route path='*' exact={true}/>
+            <Redirect from='*' to='/' />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

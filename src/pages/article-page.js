@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HomeButton from './../common/home-button/home-button.component';
 import Article from './../common/article/article.component';
+import Language from '../common/language';
 
 class ArticlePage extends Component {
 
@@ -30,7 +31,7 @@ class ArticlePage extends Component {
 
 	render() {
 		if (this.state.loading) {
-			return (<h3>Loading...</h3>);
+			return (<h3>{Language.getTextByCode('LOADING')}...</h3>);
 		} else {	
 			return (
 				<div>

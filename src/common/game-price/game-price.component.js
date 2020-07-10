@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Language from '../language';
 import Card from 'react-bootstrap/Card';
 
 import './game-price.component.css';
@@ -34,7 +35,7 @@ class GamePrice extends Component {
             </div>
             <div className="col-7 self-center">
               <div className="row text-center">
-                <div className="col-7">original price</div>
+                <div className="col-7">{Language.getTextByCode('ORIGINAL_PRICE')}</div>
                 <div className="col-5">{this.props.game.price + ' $'}</div>
               </div>
 
@@ -44,7 +45,7 @@ class GamePrice extends Component {
               </div>
 
               <div className="row  text-center">
-                <div className="col-7">discount</div>
+                <div className="col-7">{Language.getTextByCode('DISCOUNT')}</div>
                 <div className="col-5">{this.props.discount + ' $'}</div>
               </div>
 
@@ -56,7 +57,7 @@ class GamePrice extends Component {
               </div>
 
               <div className="row  text-center">
-                <div className="col-7">final price</div>
+                <div className="col-7">{Language.getTextByCode('FINAL_PRICE')}</div>
                 <div className="col-5">{ (( (this.props.game.price - this.props.discount) >= 0 )? (this.props.game.price - this.props.discount): 0)+ ' $'}</div>
               </div>
             </div>
@@ -66,7 +67,7 @@ class GamePrice extends Component {
           <div className="row">
             <div className="col"></div>
             <div className="col text-right">
-              <button className="btn btn-outline-success" onClick={this.props.next}>Next <span className="fa fa-angle-right ml-3"/></button>
+              <button className="btn btn-outline-success" onClick={this.props.next}>{Language.getTextByCode('NEXT')} <span className="fa fa-angle-right ml-3"/></button>
             </div>
           </div>
         </Card.Footer>

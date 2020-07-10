@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import './home-button.component.css';
 import { Link } from 'react-router-dom';
+import Language from '../language';
+
+import './home-button.component.css';
 
 class HomeButton extends Component {
-	
-	redirectToHome = (e) => {
-		// return <Redirect to='/home'/>
-		// this.props.history.push('/home');
-		// console.log(useHistory());
-	};
 
 	render() {
 		return (
 			<Link to="/">
-				<button className="btn btn-outline-primary" onClick={this.redirectToHome}>				
+				<button className="btn btn-outline-primary">				
 					<span className="fa fa-angle-left mr-1"/>
-					Home
+					{Language.getTextByCode('HOME')}
 				</button>
 			</Link>
 		);

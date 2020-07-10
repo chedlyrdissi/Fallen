@@ -24,12 +24,10 @@ class GameGallery extends Component {
 
 	previous = (e) => {
 		this.setState({index: (this.state.index-1+this.props.list.length)%this.props.list.length });
-		console.log("previous "+this.state.index);
 	};
 
 	next = (e) => {
 		this.setState({index: (this.state.index+1)%this.props.list.length });
-		console.log("next "+this.state.index);
 	};
 
 	render() {
@@ -38,26 +36,38 @@ class GameGallery extends Component {
 				<label>Games</label>
 				<div className="p-auto">
 					<div className="row">
-						<div className="col col-1 my-auto">
-							<img id="prevIcon" alt="" className="gallery-icon" onClick={this.previous} src="/resources/arrow-left.png" />
+						<div className="col-1 my-auto">
+							{(this.props.list.length > 3) ?
+								(<img id="prevIcon" alt="" className="gallery-icon" onClick={this.previous} src="/resources/arrow-left.png" />)
+								: ''}
 						</div>
-						<div className="col col-3"><Game 
-							title={this.props.list[(this.state.index-1+this.props.list.length)%this.props.list.length].title} 
-							image={this.props.list[(this.state.index-1+this.props.list.length)%this.props.list.length].image} 
-							price={this.props.list[(this.state.index-1+this.props.list.length)%this.props.list.length].price}/>
+						<div className="col-10">
+							<div className="row">
+								<div className="col">
+									{ (this.props.list.length > 2)?
+										<Game game={this.props.list[(this.state.index-1+this.props.list.length)%this.props.list.length]}/>
+										: ''
+									}
+								</div>
+								<div className="col">
+									{(this.props.list.length > 0)?
+										<Game game={this.props.list[this.state.index]}/>
+										:
+										<h3>No games available</h3>
+									} 
+								</div>
+								<div className="col">
+									{ (this.props.list.length > 1)?
+										<Game game={this.props.list[(this.state.index+1)%this.props.list.length]}/>
+										: ''
+									}
+								</div>
+							</div>
 						</div>
-						<div className="col col-4"><Game 
-							title={this.props.list[this.state.index].title} 
-							image={this.props.list[this.state.index].image} 
-							price={this.props.list[this.state.index].price}/>
-						</div>
-						<div className="col col-3"><Game 
-							title={this.props.list[(this.state.index+1)%this.props.list.length].title} 
-							image={this.props.list[(this.state.index+1)%this.props.list.length].image} 
-							price={this.props.list[(this.state.index+1)%this.props.list.length].price}/>
-						</div>
-						<div className="col col-1 my-auto">
+						<div className="col-1 my-auto">
+							{(this.props.list.length > 3) ?
 							<img id="nextIcon" alt="" className="gallery-icon" onClick={this.next} src="/resources/arrow-right.png" />
+							: ''}
 						</div>
 					</div>
 				</div>

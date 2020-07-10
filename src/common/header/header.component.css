@@ -1,6 +1,6 @@
 .header {
   height: 100px;
-  margin: 0px;
+  /*margin: 0px;*/
 }
 
 img.logo {
@@ -21,4 +21,14 @@ img {
 
 .container {
   margin-right: 0px !important;;
+}
+
+.website-title {
+  color: black;
+  /*height: 100vh;*/
+  font-size: -webkit-xxx-large;
+}
+
+.text-right {
+  justify-content: flex-end;
 }

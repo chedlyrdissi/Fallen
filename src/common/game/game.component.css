@@ -2,17 +2,24 @@ game-title {
 	color: red;
 }
 
-game-price {
-	
-}
-
 img.game-image {
 	width: 80% !important;
-	height: 50%;
+	height: 40%;
 	filter: contrast(2);
 	margin: 5% 10%;
 }
 
 .btn-margin {
 	margin: 10px;
+}
+
+.game-rank {
+	top: 0px;
+	right: 0px;
+	background: black;
+	color: white;
+}
+
+.game-container {
+	position: relative;
 }

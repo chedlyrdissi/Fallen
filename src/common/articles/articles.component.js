@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table'
 import { Link } from 'react-router-dom';
+import Language from '../language';
 import './articles.component.css'
 
 class Articles extends Component {
@@ -24,7 +25,7 @@ class Articles extends Component {
 			      	<td>{art.rank}</td>
 			      	<td>
 			      		<Link to={'/article/' + art.title}>
-			      			<button className="btn btn-outline-primary" target={art.title}>Read Article</button>
+			      			<button className="btn btn-outline-primary" target={art.title}>{Language.getTextByCode('READ_ARTICLE')}</button>
 			      		</Link>
 			      	</td>
 			    </tr>
@@ -37,14 +38,14 @@ class Articles extends Component {
 
 		return (
 			<div className="group lowered">
-				<label>Articles</label>
+				<label>{Language.getTextByCode('ARTICLES')}</label>
 				<div className="p-auto">
 					<Table bordered hover>
 					  	<thead>
 						    <tr className="text-center">
-						    	<th>Game</th>
-						    	<th>Article</th>
-						    	<th>Article <br/> Rank</th>
+						    	<th>{Language.getTextByCode('GAME')}</th>
+						    	<th>{Language.getTextByCode('ARTICLE')}</th>
+						    	<th>{Language.getTextByCode('ARTICLE')}<br/>{Language.getTextByCode('RANK')} </th>
 						    	<th></th>
 						    </tr>
 					  	</thead>

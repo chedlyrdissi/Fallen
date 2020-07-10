@@ -9,9 +9,12 @@ import GamePrice from './../common/game-price/game-price.component';
 import PaymentConfirmation from './../common/payment-confirmation/payment-confirmation.component';
 import HomeButton from './../common/home-button/home-button.component';
 
+import UserProfile from '../common/user-profile';
+import Language from '../common/language';
+
 class Payment extends Component {
 	classes;
-  	steps = [<span><i className="fa fa-gamepad"></i><br/>Game</span>, <span><i className="fa fa-credit-card"></i><br/>Credit Card</span>, <span><i className="fa fa-check"></i><br/>Confirmation</span>];
+  	steps = [<span><i className="fa fa-gamepad"></i><br/>{Language.getTextByCode('GAME')}</span>, <span><i className="fa fa-credit-card"></i><br/>{Language.getTextByCode('CREDIT_CARD')}</span>, <span><i className="fa fa-check"></i><br/>{Language.getTextByCode('CONFIRMATION')}</span>];
 
   	constructor(props) {
   		super(props);
@@ -71,39 +74,43 @@ class Payment extends Component {
 		    case 1:
 		      return <CreditCard next={this.handleNext} previous={this.handleBack}/>;
 		    case 2:
-		      return <PaymentConfirmation previous={this.handleBack} confirm={() => {alert('confirmed')}}/>;
+		      return <PaymentConfirmation previous={this.handleBack} confirm={() => {alert(Language.getTextByCode('CONFIRMED'))}}/>;
 		    default:
-		      return 'Unknown stepIndex';
+		      return Language.getTextByCode('UNKNOWN_STEP');
 		}
 	}
 	
 	render() {
 		if ( this.state.loading ) {
-			return (<h3>Loading page</h3>);
+			return (<h3>{Language.getTextByCode('LOADING')}...</h3>);
 		} else {
-			return (
-				<div className="container">
-					<div className="row m-5">
-						<HomeButton/>
+			if (UserProfile.isLoggedIn()) {				
+				return (
+					<div className="container">
+						<div className="row m-5">
+							<HomeButton/>
+						</div>
+						<div className="row justify-content-center">
+							<Card>
+								<Card.Header>
+									<Stepper activeStep={this.state.activeStep} alternativeLabel>
+								        {this.steps.map((label, index) => (
+								          	<Step key={index}>
+								            	<StepLabel>{label}</StepLabel>
+								          	</Step>
+								        ))}
+								    </Stepper>
+								</Card.Header>
+							  	<Card.Body className="text-center">
+							  		{this.getStepContent()}
+							  	</Card.Body>
+							</Card>
+						</div>
 					</div>
-					<div className="row justify-content-center">
-						<Card>
-							<Card.Header>
-								<Stepper activeStep={this.state.activeStep} alternativeLabel>
-							        {this.steps.map((label, index) => (
-							          	<Step key={index}>
-							            	<StepLabel>{label}</StepLabel>
-							          	</Step>
-							        ))}
-							    </Stepper>
-							</Card.Header>
-						  	<Card.Body className="text-center">
-						  		{this.getStepContent()}
-						  	</Card.Body>
-						</Card>
-					</div>
-				</div>
-			);
+				);
+			} else {
+				return (<h3>{Language.getTextByCode('PLEASE_LOG_IN_TO_BUY')}</h3>);
+			}
 		}
 	}
 }

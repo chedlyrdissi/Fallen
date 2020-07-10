@@ -46,9 +46,49 @@ function getArticleByTitle(title, articles) {
     }
 }
 
+function auth(username, password, strict = true) {
+    for (let user of readData('users')) {
+        if (user.username === username){
+            if ( strict ) {
+                if (user.password === password) {
+                    return user;
+                }      
+            } else {
+                return user;
+            }
+        }
+    }
+}
+
+function addUser(username, password) {
+    let users = readData('users');
+    let newUser = {
+        username: username,
+        password: password,
+        id: generateId(username, password)
+    };
+    users.push(newUser);
+    writeData(users, 'users');
+    return newUser;
+}
+
+function generateId(username, password) {
+    let res = username.slice(0);
+    for(let i=0; i<password.length; i++) {
+        res += String.fromCharCode(password.charCodeAt(i)+i);
+    }
+    return res;
+}
+
 // This is the controler per se, with the get/post
 module.exports = {
     controller: function(app){
+
+        // parse application/x-www-form-urlencoded
+        app.use(bodyParser.urlencoded({ extended: false }))
+
+        // parse application/json
+        app.use(bodyParser.json())
 
         app.get('/home', function(req, res){
             let data = {};
@@ -108,6 +148,41 @@ module.exports = {
             }
             console.log(data.game);
             res.send(data);
+        });
+
+        app.post('/log-in', urlencodedParser, (req, res) => {
+            console.log('logging in');
+            let user = auth(req.body.username, req.body.password);
+            if (user === undefined) {
+                user = {
+                    valid: false,
+                    message: 'No such user exists'
+                };
+            } else {
+                user.valid = true;
+                user.password = undefined;
+            }
+            res.send(user);
+            console.log('logging in');
+        });
+
+        app.post('/sign-up', urlencodedParser, (req, res) => {
+            console.log('signing up');
+            // console.log(req.body);
+            let user = auth(req.body.username, req.body.password, false);
+            if ( user ) {
+                // user exists
+                user = {
+                    valid: false,
+                    message: 'username is unavailable'
+                }
+            } else {
+                user = addUser(username, password);
+                user.valid = true;
+                user.password = undefined;
+            }
+            res.send(user);
+            console.log('signing up');
         });
 
         app.get('/payment/:title', urlencodedParser, function(req, res){

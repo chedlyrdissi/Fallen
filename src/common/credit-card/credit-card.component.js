@@ -2,23 +2,24 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import Inputmask from "inputmask";
 import Card from 'react-bootstrap/Card';
+import Language from '../language';
 
 class CreditCard extends Component {
 
 	componentDidMount() {
 		$(document).ready(function() {
 
-			var im = new Inputmask("9999 9999 9999 9999");
-			im.mask(document.getElementById("cardNum"));
+			var cardim = new Inputmask("9999 9999 9999 9999");
+			cardim.mask(document.getElementById("cardNum"));
 
-			var im = new Inputmask("999");
-			im.mask(document.getElementById("cvvNum"));
+			var cvvim = new Inputmask("999");
+			cvvim.mask(document.getElementById("cvvNum"));
 
-			var im = new Inputmask("2029");
-			im.mask(document.getElementById("paymentYear"));
+			var yearim = new Inputmask("2029");
+			yearim.mask(document.getElementById("paymentYear"));
 
-			var im = new Inputmask("12");
-			im.mask(document.getElementById("paymentMonth"));
+			var monthim = new Inputmask("12");
+			monthim.mask(document.getElementById("paymentMonth"));
 
 			var validMap = {
 				"cardNum": false,
@@ -40,7 +41,7 @@ class CreditCard extends Component {
 
 
 			$("#cardNum").on('input', function(){
-		    	if (this.value == '' ||
+		    	if (this.value === '' ||
 		    		this.value.includes("_") ||
 		    		isNaN(this.value.replace(/ /g, ''))) {
 		    		$("#cardNum").removeClass("is-valid");
@@ -54,7 +55,7 @@ class CreditCard extends Component {
 		    	updateButton();
 		    });
 		    $("#cvvNum").on('input', function(){
-		    	if (this.value == '' ||
+		    	if (this.value === '' ||
 		    		this.value.includes("_") ||
 		    		this.value < 0 ||
 		    		this.value > 999 ||
@@ -71,7 +72,7 @@ class CreditCard extends Component {
 		    	updateButton();
 		    });
 		    $("#nameFieldPayment").on('input', function(){
-		    	if (this.value == '') {
+		    	if (this.value === '') {
 		    		$("#nameFieldPayment").removeClass("is-valid");
 		    		$("#nameFieldPayment").addClass("is-invalid");
 		    		validMap["nameFieldPayment"] = false;
@@ -83,7 +84,7 @@ class CreditCard extends Component {
 		    	updateButton();
 		    });
 		    $("#paymentYear").on('input', function(){
-		    	if (this.value == '' ||
+		    	if (this.value === '' ||
 		    		parseInt(this.value) > 2025 ||
 		    		parseInt(this.value) < 2020) {
 		    		$("#paymentYear").removeClass("is-valid");
@@ -97,8 +98,8 @@ class CreditCard extends Component {
 		    	updateButton();
 		    });
 		    $("#paymentMonth").on('input', function(){
-		    	if (this.value == '' ||
-		    		parseInt(this.value) > 31 ||
+		    	if (this.value === '' ||
+		    		parseInt(this.value) > 12 ||
 		    		parseInt(this.value) < 0) {
 		    		$("#paymentMonth").removeClass("is-valid");
 		    		$("#paymentMonth").addClass("is-invalid");
@@ -119,11 +120,11 @@ class CreditCard extends Component {
 			<Card>
 			  	<Card.Body className="text-center">
 			  		<div className="form-group">
-                            <label>Full name (on the card)</label>
+                            <label>{Language.getTextByCode('FULL_NAME_ON_CARD')}</label>
                             <input type="text" name="paymentInfoField" placeholder="Jason Doe" required className="form-control is-invalid" id="nameFieldPayment"/>
                         </div>
                         <div className="form-group">
-                            <label>Card number</label>
+                            <label>{Language.getTextByCode('CARD_NUMBER')}</label>
                             <div className="input-group">
                                 <input type="tel" name="paymentInfoField" id="cardNum" placeholder="Your card number" className="form-control is-invalid" required/>
                                 <div className="input-group-append">
@@ -138,7 +139,7 @@ class CreditCard extends Component {
                         <div className="row">
                             <div className="col-sm-8">
                                 <div className="form-group">
-                                    <label><span className="hidden-xs">Expiration</span></label>
+                                    <label><span className="hidden-xs">{Language.getTextByCode('EXPIRATION')}</span></label>
                                         <div className="input-group">
                                             <input type="number" placeholder="MM" name="paymentInfoField" className="form-control is-invalid" min="1" max="12" required id="paymentMonth"/>
                                             <input type="number" placeholder="YY" name="paymentInfoField" className="form-control is-invalid" min="2020" required id="paymentYear"/>
@@ -147,7 +148,7 @@ class CreditCard extends Component {
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group mb-4">
-                                    <label data-toggle="tooltip" title="Three-digits code on the back of your card">CVV
+                                    <label data-toggle="tooltip" title="Three-digits code on the back of your card">{Language.getTextByCode('CVV')}
                                         <i className="fa fa-question-circle"></i>
                                     </label>
                                     <input type="tel" min="0" max="999" name="paymentInfoField" id="cvvNum" required className="form-control is-invalid"/>
@@ -158,10 +159,10 @@ class CreditCard extends Component {
 			  	<Card.Footer className="">
 			  		<div className="row">
                     	<div className="col text-left">
-                        	<button className="btn btn-outline-success" onClick={this.props.previous}><span className="fa fa-angle-left mr-3"/>Previous</button>	
+                        	<button className="btn btn-outline-success" onClick={this.props.previous}><span className="fa fa-angle-left mr-3"/>{Language.getTextByCode('PREVIOUS')}</button>	
                     	</div>
                     	<div className="col text-right">
-                    		<button id="creditCardNext" className="btn btn-outline-success" onClick={this.props.next}>Next<span className="fa fa-angle-right ml-3"/></button>
+                    		<button id="creditCardNext" className="btn btn-outline-success" onClick={this.props.next}>{Language.getTextByCode('NEXT')}<span className="fa fa-angle-right ml-3"/></button>
                     	</div>
                     </div>
                 </Card.Footer>
