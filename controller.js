@@ -2,6 +2,8 @@
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 var fs = require('fs');
+// const {Translate} = require('@google-cloud/translate').v2;
+const translate = require("@vitalets/google-translate-api");
 
 // read the data file
 function readData(fileName){
@@ -80,6 +82,85 @@ function generateId(username, password) {
     return res;
 }
 
+async function translateText(text, language, done){
+    translate(text, {to: language}).then(res=>{
+        // return Promise.resolved(res);
+        done(res);
+        return res;
+    });
+}
+
+async function translateTextAndInsert(article){
+    let artEn = readData('articles-en');
+    artEn.push(article);
+
+    let artDe = readData('articles-de');
+    artDe.push(article);
+
+    writeData(artEn, 'articles-en');
+    writeData(artDe, 'articles-de');
+    
+    var title = article.title;
+
+    for(let lang of ['en', 'de']) {        
+        translate(article.title, {to: lang}).then(res=>{
+            let articles = readData('articles-'+lang);
+            console.log(articles);
+            for(let art of articles){
+                if (art.title === title){
+                    art.title = res.text;
+                }
+            }
+            writeData(articles, 'articles-'+lang);
+        });
+        translate(article.body, {to: lang}).then(res=>{
+           let articles = readData('articles-'+lang);
+            console.log(articles);
+            for(let art of articles){
+                if (art.title === title){
+                    art.body = res.text;
+                }
+            }
+            writeData(articles, 'articles-'+lang); 
+        });        
+    }
+}
+
+function validUser(id) {
+    const users = readData('users');
+    for (let u of users) {
+        if (u.id === id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function validTitle(title) {
+    const artEn = readData('articles-en');
+    // console.log(artEn);
+    for (let u of artEn) {
+        // console.log(u.title.trim()+' '+title.trim());
+        // console.log(u.title.trim()==title.trim());
+        console.log('u title /' + u.title+'/' );
+        console.log('title /' + title+'/' );
+        if (u.title == title) {
+            return false;
+        }
+    }
+    const artDe = readData('articles-de');
+    // console.log(artDe);
+    for (let u of artDe) {
+        console.log(u.title+' '+title);
+        console.log(u.title==title);
+        if (u.title == title) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 // This is the controler per se, with the get/post
 module.exports = {
     controller: function(app){
@@ -90,20 +171,22 @@ module.exports = {
         // parse application/json
         app.use(bodyParser.json())
 
-        app.get('/home', function(req, res){
+        app.get('/home/:language', function(req, res){
             let data = {};
             data.games = readData('games');
+            // console.log(req);
             res.send(data);
         });
 
-        app.get('/search/:title', urlencodedParser, function(req, res){
+        app.get('/search/:title/:language', urlencodedParser, function(req, res){
             
             // console.log(req.params.title);
-            // writeData(req, 'method');            
+            // writeData(req, 'method');     
+            // console.log(req.params);       
             let data = {};
             const title = req.params.title;
             let allGames = readData('games');
-            let allArticles = readData('articles');
+            let allArticles = readData('articles-'+req.params.language);
 
             data.games = allGames;
             if ( title.length !== 0 ){                
@@ -136,18 +219,55 @@ module.exports = {
             // res.send("works");
         });
 
-        app.get('/article/:title', urlencodedParser, function(req, res){
+        app.get('/article/:title/:language', urlencodedParser, function(req, res){
 
             let title = req.params.title;
-            let data = {};
+            var data = {};
 
-            data.article = getArticleByTitle(title, readData('articles'));
-            console.log(data.article);
-            if (data.article) {
-                data.game = getGameByTitle(data.article.game ,readData('games'));
-            }
-            console.log(data.game);
-            res.send(data);
+            data.article = getArticleByTitle(title, readData('articles-'+req.params.language));
+            let done = 0;
+            // const DONE = 2*data.article.length;
+            const exitNum = 2;
+
+            // for (let article of data.article) {
+            //     // translate title
+            //     translateText(article.title, req.params.language, (response) => {
+            //         article.title = response.text;
+            //         done++;
+            //     });
+            //     // translate body
+            //     translateText(article.body, req.params.language, (response) => {
+            //         article.body = response.text;
+            //         done++;
+            //     });                
+            // }
+            if (data.article) {     
+                let transTitle = myTranslateFn(data.article.title, req.params.language);           
+                let transBody = myTranslateFn(data.article.body, req.params.language);           
+                // translate(data.article.title, {to: req.params.language}).then(res=>{
+                    
+                //     data.article.title = res.text;
+
+                //     translate(data.article.body, {to: req.params.language}).then(res=>{
+
+                //         data.article.body = res.text;
+
+                //     }); 
+                // });    
+                // while (typeof transTitle !== 'string' && typeof transBody !== 'string') {
+
+                // }
+                // data.article.title = transTitle;
+                // data.article.body = transBody;
+                data.game = getGameByTitle(data.article.game ,readData('games')); 
+
+                console.log(data);     
+                res.send(data);
+                
+            
+            } else {
+                res.send(data);    
+            }             
         });
 
         app.post('/log-in', urlencodedParser, (req, res) => {
@@ -164,6 +284,47 @@ module.exports = {
             }
             res.send(user);
             console.log('logging in');
+        });
+
+        app.post('/edit/article/:language/:userId', urlencodedParser, (req, res) => {
+            console.log(req.body);
+            console.log(req.params);
+            const language = req.params.language;
+            const userId = req.params.userId;
+            let data = {};
+            // get data
+            let newArticle = {
+                title: req.body.title,
+                body: req.body.body,
+                rank: 99,
+                game: req.body.game,
+                user: req.params.userId
+            }
+
+            data.article = newArticle;
+
+            const articles = readData('articles-'+language);
+            const users = readData('users');
+
+            if (validUser(userId)) {
+                if(validTitle(newArticle.title)) {
+                    console.log('valid title and user');    
+                    data.valid = true;
+                    // translate title
+                    // translateTextAndInsert(newArticle);
+                } else {
+                    console.log('notvalid');
+                    data.valid = false;
+                    data.titleInvalid = true;
+                    data.message = 'TITLE_UNAVAILABLE';                    
+                }
+            } else {
+                console.log('notvalid');
+                data.valid = false;
+                data.message = 'NO_SUCH_USER';
+            }
+
+            res.send(data);
         });
 
         app.post('/sign-up', urlencodedParser, (req, res) => {
@@ -204,7 +365,7 @@ module.exports = {
                 if (d.restriction) {
 
                 } else {
-                    console.log(d.discount);
+                    // console.log(d.discount);
                     val += d.discount;
                 }
             }
@@ -216,4 +377,15 @@ module.exports = {
             res.send(data);
         });
     }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function wait(ms) {
+    await sleep(ms);
+}
+async function myTranslateFn(text, lang){
+    let res = await translate(text, {to: lang}); 
+    return res.text;
 }

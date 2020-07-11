@@ -40,7 +40,8 @@ class Payment extends Component {
 		const requestOptions = {
 	        method: 'GET',
 	        params: {          	
-	        	title: this.props.match.params.title
+	        	title: this.props.match.params.title,
+	        	language: Language.getLanguage()
 	        }
 	    };
 	    fetch('http://192.168.137.1:4000/payment/'+this.props.match.params.title, requestOptions)
@@ -86,7 +87,7 @@ class Payment extends Component {
 		} else {
 			if (UserProfile.isLoggedIn()) {				
 				return (
-					<div className="container">
+					<div className="container-fluid">
 						<div className="row m-5">
 							<HomeButton/>
 						</div>

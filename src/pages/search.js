@@ -17,13 +17,14 @@ class Search extends Component {
 	    const requestOptions = {
 	        method: 'GET',
 	        params: {          	
-	        	title: this.props.match.params.title
+	        	title: this.props.match.params.title,
+	        	language: Language.getLanguage()
 	        }
 	    };
-	    fetch('http://192.168.137.1:4000/search/'+this.props.match.params.title, requestOptions)
+	    fetch('http://192.168.137.1:4000/search/'+this.props.match.params.title+'/'+Language.getLanguage(), requestOptions)
 	    .then(response => response.json())
 	    .then((data) => {
-	    	console.log(data);
+	    	// console.log(data);
 	        this.setState(
 	        	{
 	        		loading: false, 
@@ -53,7 +54,7 @@ class Search extends Component {
 			}
 
 			return (
-				<div className="container">
+				<div className="container-fluid">
 					<div className="row m-5">
 						<HomeButton/>
 					</div>

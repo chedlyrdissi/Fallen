@@ -12,25 +12,24 @@ class Home extends Component {
 
 	constructor(props) {
 		super();
-		this.getTodos();
-	}
-
-	componentDidMount() {
-
-	}
-
-	async getTodos() {
-        const requestOptions = {
-	        method: 'GET'
+		const requestOptions = {
+	        method: 'GET',
+	        params: {
+	        	language: Language.getLanguage()
+	        }
     	};
-        fetch('http://192.168.137.1:4000/home',requestOptions)
+        fetch('http://192.168.137.1:4000/home/'+Language.getLanguage(),requestOptions)
         .then(response => response.json())
         .then((data) => {
         	// console.log(data);
         	this.setState({loading: false, list: data.games});
         	// this.state.list = data.games;
         });
-    }
+	}
+
+	componentDidMount() {
+
+	}
 
 	render() {
 		if ( this.state.loading ) {

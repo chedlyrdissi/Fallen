@@ -2,7 +2,7 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 
 var UserProfile = (function() {
   var getUser = function() {
-    return reactLocalStorage.getObject('userProfile').username;
+    return reactLocalStorage.getObject('userProfile');
   }
 
   var logIn = function (username, id) {

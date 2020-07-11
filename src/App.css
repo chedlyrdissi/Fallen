@@ -48,3 +48,7 @@
 .header-container {
   width: 95%;
 }
+.language-main-container {
+  position: absolute;
+  top: 50%;
+}

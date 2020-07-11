@@ -17,13 +17,14 @@ class ArticlePage extends Component {
 		const requestOptions = {
 	        method: 'GET',
 	        params: {
-	        	title: this.props.match.params.title
+	        	title: this.props.match.params.title,
+	        	language: Language.getLanguage()
 	        }
     	};
-        fetch('http://192.168.137.1:4000/article/'+this.props.match.params.title, requestOptions)
+        fetch('http://192.168.137.1:4000/article/'+this.props.match.params.title+'/'+Language.getLanguage(), requestOptions)
         .then(response => response.json())
         .then((data) => {
-        	console.log(data);
+        	// console.log(data);
         	this.setState({loading: false, game: data.game, article: data.article});
         	// this.state.list = data.games;
         });
@@ -34,7 +35,7 @@ class ArticlePage extends Component {
 			return (<h3>{Language.getTextByCode('LOADING')}...</h3>);
 		} else {	
 			return (
-				<div>
+				<div className="container-fluid">
 					<div className="row ml-3">
 						<HomeButton />
 					</div>

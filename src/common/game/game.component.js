@@ -23,7 +23,7 @@ class Game extends Component {
 				    	<Button className="btn btn-margin" variant="primary">{Language.getTextByCode('BUY')}</Button><br/>
 				    </Link>
 				    <Link to={'/search/' + this.props.game.title}>
-				    	<Button variant="primary">{Language.getTextByCode('RELATED')} <br/> {Language.getTextByCode('ARTICLES')}</Button>
+				    	<Button variant="primary">{Language.getTextByCode('RELATEED')}<br/>{Language.getTextByCode('ARTICLES')}</Button>
 				    </Link>
 			  	</Card.Body>
 			</Card>

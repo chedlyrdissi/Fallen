@@ -1,29 +1,28 @@
 import {reactLocalStorage} from 'reactjs-localstorage';
-import I18N from './language/I18N';
+import I18NEn from './language/I18N-en';
+import I18NDe from './language/I18N-de';
 // var fs = require('fs');
 
 const languageMap = {
-	eng: 'I10N'
-
+	en: I18NEn,
+	de: I18NDe
 }
 
 var Language = (function() {
 
-	var language = 'eng';
 	var data;
 
 	var getLanguage = function () {
-		return language;
+		return reactLocalStorage.get('AppLanguage');
 	}
 
 	var setLanguage = function (l) {
-		language = l;
+		reactLocalStorage.set('AppLanguage', l)
 	}
 
 	var getTextByCode = function (code) {
 		if ( !data ) {
-			// data = JSON.parse(fs.readFileSync('./language/'+languageMap[language]+'.json'));
-			data = I18N;
+			data = languageMap[getLanguage()];
 		}
 		return data[code];
 	}
@@ -31,7 +30,11 @@ var Language = (function() {
 	return {
 		getLanguage: getLanguage,
 		setLanguage: setLanguage,
-		getTextByCode: getTextByCode		
+		getTextByCode: getTextByCode,
+		options: [
+	  		{ value: 'de', label: 'Deutsche' },
+	  		{ value: 'en', label: 'English' }
+		]		
 	}
 
 })();

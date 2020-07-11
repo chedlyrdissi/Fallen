@@ -38,7 +38,8 @@ class SignUp extends Component {
 	        headers: { 'Content-Type': 'application/json' },
 	        body: JSON.stringify({
 	        	username: $("#username").prop('value'),
-	        	password: $("#password").prop('value')
+	        	password: $("#password").prop('value'),
+	        	language: Language.getLanguage()
 	        })
     	};
         fetch('http://localhost:4000/sign-up',requestOptions)

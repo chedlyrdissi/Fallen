@@ -13,7 +13,6 @@ export default {
 	"CVV": "CVV",
 	"PREVIOUS": "Previous",
 	"NEXT": "Next",
-	"GAME_RANK": "Game Rank",
 	"RELATEED": "Related",
 	"ORIGINAL_PRICE": "Original Price",
 	"DISCOUNT": "Discount",
@@ -41,4 +40,13 @@ export default {
 	"PLEASE_LOG_IN_TO_BUY": "Please log in or sign up to buy this game",
 	"NO_ARTICLES_FOUND": "No articles found by the search were found",
 	"NO_GAMES_FOUND": "No games found by the search were found",
+	"PLEASE_SELECT_GAME": "Please select a game",
+	"TITLE": "Title",
+	"CONTENT": "Content",
+	"CREATE": "Create",
+	"CREATE_ARTICLE": "Create Article",
+	"NEED_LOG_IN_CREATE_ARTICLE": "You need to log in to create an article",
+	"TITLE_UNAVAILABLE": "Title unavailable",
+	"NO_SUCH_USER": "No such user exists"
+
 };
