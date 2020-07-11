@@ -47,6 +47,7 @@ export default {
 	"CREATE_ARTICLE": "Create Article",
 	"NEED_LOG_IN_CREATE_ARTICLE": "You need to log in to create an article",
 	"TITLE_UNAVAILABLE": "Title unavailable",
-	"NO_SUCH_USER": "No such user exists"
-
+	"NO_SUCH_USER": "No such user exists",
+	"COMMENTS": "Comments",
+	"REPLY": "Reply"
 };

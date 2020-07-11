@@ -47,5 +47,7 @@ export default {
 	"CREATE_ARTICLE": "Artikel erstellen",
 	"NEED_LOG_IN_CREATE_ARTICLE": "Sie müssen sich anmelden, um einen Artikel zu erstellen",
 	"TITLE_UNAVAILABLE": "Titel nicht verfügbar",
-	"NO_SUCH_USER": "Es gibt keinen solchen Benutzer"
+	"NO_SUCH_USER": "Es gibt keinen solchen Benutzer",
+	"COMMENTS": "Bemerkungen",
+	"REPLY": "Antworten"
 };

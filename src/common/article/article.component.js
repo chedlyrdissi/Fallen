@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
+import Comments from '../comments/comments.component';
 import { Link } from 'react-router-dom';
 import Language from '../language';
 
@@ -43,7 +44,7 @@ class Article extends Component {
 						    	</Card.Text>
 							</Card.Body>
 							<Card.Footer>
-						    	comments
+						    	<Comments />
 						    </Card.Footer>
 						</Card>
 					</div>

@@ -99,13 +99,13 @@ async function translateTextAndInsert(article){
 
     writeData(artEn, 'articles-en');
     writeData(artDe, 'articles-de');
-    
+
     var title = article.title;
 
     for(let lang of ['en', 'de']) {        
         translate(article.title, {to: lang}).then(res=>{
             let articles = readData('articles-'+lang);
-            console.log(articles);
+            // console.log(articles);
             for(let art of articles){
                 if (art.title === title){
                     art.title = res.text;
@@ -115,7 +115,7 @@ async function translateTextAndInsert(article){
         });
         translate(article.body, {to: lang}).then(res=>{
            let articles = readData('articles-'+lang);
-            console.log(articles);
+            // console.log(articles);
             for(let art of articles){
                 if (art.title === title){
                     art.body = res.text;
@@ -138,21 +138,13 @@ function validUser(id) {
 
 function validTitle(title) {
     const artEn = readData('articles-en');
-    // console.log(artEn);
     for (let u of artEn) {
-        // console.log(u.title.trim()+' '+title.trim());
-        // console.log(u.title.trim()==title.trim());
-        console.log('u title /' + u.title+'/' );
-        console.log('title /' + title+'/' );
         if (u.title == title) {
             return false;
         }
     }
     const artDe = readData('articles-de');
-    // console.log(artDe);
     for (let u of artDe) {
-        console.log(u.title+' '+title);
-        console.log(u.title==title);
         if (u.title == title) {
             return false;
         }
@@ -225,9 +217,6 @@ module.exports = {
             var data = {};
 
             data.article = getArticleByTitle(title, readData('articles-'+req.params.language));
-            let done = 0;
-            // const DONE = 2*data.article.length;
-            const exitNum = 2;
 
             // for (let article of data.article) {
             //     // translate title
@@ -286,7 +275,7 @@ module.exports = {
             console.log('logging in');
         });
 
-        app.post('/edit/article/:language/:userId', urlencodedParser, (req, res) => {
+        app.post('/edit/article/:language/:userId', urlencodedParser, async (req, res) => {
             console.log(req.body);
             console.log(req.params);
             const language = req.params.language;
@@ -311,7 +300,7 @@ module.exports = {
                     console.log('valid title and user');    
                     data.valid = true;
                     // translate title
-                    // translateTextAndInsert(newArticle);
+                    translateTextAndInsert(newArticle);
                 } else {
                     console.log('notvalid');
                     data.valid = false;
@@ -328,6 +317,25 @@ module.exports = {
         });
 
         app.post('/sign-up', urlencodedParser, (req, res) => {
+            console.log('signing up');
+            // console.log(req.body);
+            let user = auth(req.body.username, req.body.password, false);
+            if ( user ) {
+                // user exists
+                user = {
+                    valid: false,
+                    message: 'username is unavailable'
+                }
+            } else {
+                user = addUser(username, password);
+                user.valid = true;
+                user.password = undefined;
+            }
+            res.send(user);
+            console.log('signing up');
+        });
+
+        app.post('/comment/:language/:commentId', urlencodedParser, (req, res) => {
             console.log('signing up');
             // console.log(req.body);
             let user = auth(req.body.username, req.body.password, false);

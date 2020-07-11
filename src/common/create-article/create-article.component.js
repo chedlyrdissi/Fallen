@@ -136,7 +136,7 @@ class CreateArticle extends Component {
         		if (data.titleInvalid) {
         			this.setState({titleInvalid: true, valid: false});
         		}
-        		$("#titleErrorMsg").html(data.message);
+        		$("#titleErrorMsg").html(Language.getTextByCode(data.message));
         		$("#titleErrorMsg").show();
         	}
         });
@@ -186,7 +186,7 @@ class CreateArticle extends Component {
 									    	</Card.Text>
 										</Card.Body>
 										<Card.Footer>
-									    	<button className="btn btn-outline-primary" type="button" onClick={this.click}>{Language.getTextByCode("CREATE")}</button>
+									    	<button className="btn btn-outline-primary" onClick={this.click}>{Language.getTextByCode("CREATE")}</button>
 									    </Card.Footer>
 									</Card>			
 								</div>

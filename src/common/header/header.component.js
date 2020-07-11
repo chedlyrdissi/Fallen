@@ -61,12 +61,12 @@ class Header extends Component {
 											<img alt="" className="user-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/768px-User_font_awesome.svg.png" />
 									  	</Dropdown.Toggle>
 									  	<Dropdown.Menu alignRight>
-								  			<LogOut reload={this.reload}/>
 								  			<div className="text-center">
 								  				<Link to="/edit/article/">
 								  					<button className="btn btn-outline-primary">{Language.getTextByCode('CREATE_ARTICLE')}</button>
 								  				</Link>
 									  		</div>
+								  			<LogOut reload={this.reload}/>
 									  	</Dropdown.Menu>
 									</Dropdown>
 								:
