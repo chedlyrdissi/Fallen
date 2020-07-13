@@ -24,7 +24,7 @@ class Article extends Component {
 							{ this.props.game.title }
 						</div>
 						<div className="row centered">
-							{ this.props.game.price + ' $' }
+							{ (Language.getLanguage() === 'de'? '€ ':'') + this.props.game.price[Language.getLanguage()] + (Language.getLanguage() === 'en'? ' $':'') }
 						</div>
 						<div className="row centered">
 							<Link to={'/payment/'+this.props.game.title}>
@@ -40,11 +40,11 @@ class Article extends Component {
 							<Card.Header><span className="text-left">{this.props.article.title}</span> <span className="text-right">{Language.getTextByCode('ARTICLE_RANK')}: {this.props.article.rank}</span></Card.Header>
 						  	<Card.Body>
 						    	<Card.Text>
-						    		{this.props.article.body}
+						    		{this.props.article.body[Language.getLanguage()]}
 						    	</Card.Text>
 							</Card.Body>
 							<Card.Footer>
-						    	<Comments />
+						    	<Comments article={this.props.article.title} comments={this.props.comments}/>
 						    </Card.Footer>
 						</Card>
 					</div>

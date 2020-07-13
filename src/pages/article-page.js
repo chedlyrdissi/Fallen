@@ -14,6 +14,7 @@ class ArticlePage extends Component {
 	constructor(props) {		
 		super(props);
 		// console.log(props.match.params.id);
+		console.log('loading '+this.state.loading);
 		const requestOptions = {
 	        method: 'GET',
 	        params: {
@@ -21,11 +22,12 @@ class ArticlePage extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch('http://192.168.137.1:4000/article/'+this.props.match.params.title+'/'+Language.getLanguage(), requestOptions)
+        fetch('http://192.168.137.1:4000/article/'+this.props.match.params.title, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	// console.log(data);
-        	this.setState({loading: false, game: data.game, article: data.article});
+        	// console.log(data.comments);
+        	this.setState({loading: false, game: data.game, article: data.article, comments: data.comments});
         	// this.state.list = data.games;
         });
 	}
@@ -40,7 +42,7 @@ class ArticlePage extends Component {
 						<HomeButton />
 					</div>
 					<div className="row m-3">
-						<Article game={this.state.game}	article={this.state.article}/>
+						<Article game={this.state.game}	article={this.state.article} comments={this.state.comments}/>
 					</div>
 				</div>
 			);

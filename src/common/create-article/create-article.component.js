@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import TextField from '@material-ui/core/TextField';
-
+import { Redirect } from "react-router-dom";
 import $ from 'jquery';
 import Language from '../language';
 import UserProfile from '../user-profile';
@@ -23,34 +23,11 @@ class CreateArticle extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch('http://localhost:4000/home/'+Language.getLanguage(), requestOptions)
+        fetch('http://localhost:4000/home', requestOptions)
         .then(response => response.json())
         .then((data) => {
         	this.setState({loading: false, games: data.games});
         });
-	};	
-
-	createNewArticle = async () => {
-		const requestOptions = {
-	        method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-	        params: {
-	        	language: Language.getLanguage()
-	        },
-	        body: JSON.stringify({
-	        	body: $("#newArticleBody").prop('value'),
-	        	title: $("#newArticleTitle").prop('value'),
-	        	game: $("input[name='game']").filter((elem)=>{return elem.getAttribute('value')}).getAttribute('checked')
-	        })
-    	};
-    	console.log(requestOptions.body.game);
-        // fetch('http://localhost:4000/edit/article/'+this.props.match.params.title+'/'+Language.getLanguage(), requestOptions)
-        // .then(response => response.json())
-        // .then((data) => {
-        // 	// console.log(data);
-        // 	// this.setState({loading: false, game: data.game, article: data.article});
-        // 	// this.state.list = data.games;
-        // });
 	};
 
 	selectGame = (e) => {
@@ -65,43 +42,6 @@ class CreateArticle extends Component {
 
 	componentDidMount() {
 		$(document).ready(function(){
-			// $("form").submit(function(e){
-			// 	e.preventDefault();
-			// 	const requestOptions = {
-		 //        method: 'POST',
-			// 	headers: { 'Content-Type': 'application/json' },
-		 //        params: {
-		 //        	language: Language.getLanguage(),
-		 //        	userId: UserProfile.getUser().id
-		 //        },
-		 //        body: JSON.stringify({
-			//         	body: $("#newArticleBody").prop('value'),
-			//         	title: $("#newArticleTitle").prop('value'),
-			//         	game: $("input[name='game'][checked]")[0]
-			//         })
-		 //    	};
-	 
-			// 	fetch('http://localhost:4000/edit/article/'+Language.getLanguage()+'/'+UserProfile.getUser().id, requestOptions)
-		 //        .then(response => response.json())
-		 //        .then((data) => {
-		 //        	console.log(data);
-		 //        	if (data.valid) {
-		 //        		console.log('valid');
-		 //        		$("#titleErrorMsg").html('');
-		 //        		$("#titleErrorMsg").hide();
-		 //        		this.setState({valid: true});
-		 //        		return true;
-		 //        	} else {
-		 //        		if (data.titleInvalid) {
-		 //        			this.setState({titleInvalid: true, valid: false});
-		 //        		}
-		 //        		$("#titleErrorMsg").html(data.message);
-		 //        		$("#titleErrorMsg").show();
-		 //        	}
-		 //        });
-
-			// 	return false;
-			// });
 			$("#titleErrorMsg").hide();
 		});
 	};
@@ -112,7 +52,6 @@ class CreateArticle extends Component {
         method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
         params: {
-        	language: Language.getLanguage(),
         	userId: UserProfile.getUser().id
         },
         body: JSON.stringify({
@@ -122,7 +61,7 @@ class CreateArticle extends Component {
 	        })
     	};
 
-		fetch('http://localhost:4000/edit/article/'+Language.getLanguage()+'/'+UserProfile.getUser().id, requestOptions)
+		fetch('http://localhost:4000/edit/article/'+UserProfile.getUser().id, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	console.log(data);
@@ -130,7 +69,7 @@ class CreateArticle extends Component {
         		console.log('valid');
         		$("#titleErrorMsg").html('');
         		$("#titleErrorMsg").hide();
-        		this.setState({valid: true});
+        		this.setState({valid: true, redirect: '/article/'+$("#newArticleTitle").prop('value')});
         		return true;
         	} else {
         		if (data.titleInvalid) {
@@ -158,6 +97,8 @@ class CreateArticle extends Component {
 
 		if (this.state.loading) {
 			return (<h3>{Language.getTextByCode('LOADING')}</h3>);
+		} else if (this.state.redirect){
+			return (<Redirect to={this.state.redirect} />);
 		} else {
 			if (UserProfile.isLoggedIn()) {				
 				return (

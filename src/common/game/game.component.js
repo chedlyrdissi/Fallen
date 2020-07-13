@@ -18,7 +18,7 @@ class Game extends Component {
 			  	<Card.Body className="text-center">
 			    	<Card.Title>{this.props.game.title}</Card.Title>
 				    <Card.Text>{ Language.getTextByCode('GAME_RANK')+': ' + this.props.game.rank}</Card.Text>
-				    <Card.Text>{this.props.game.price + ' $'}</Card.Text>
+				    <Card.Text>{ (Language.getLanguage() === 'de'? '€ ':'') + this.props.game.price[Language.getLanguage()] + (Language.getLanguage() === 'en'? ' $':'') }</Card.Text>
 				    <Link to={'/payment/' + this.props.game.title}>
 				    	<Button className="btn btn-margin" variant="primary">{Language.getTextByCode('BUY')}</Button><br/>
 				    </Link>

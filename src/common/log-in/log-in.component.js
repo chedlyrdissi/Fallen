@@ -59,7 +59,7 @@ class LogIn extends Component {
         		this.setState({
         			usernameState: 'invalid',
         			passwordState: 'invalid',
-        			message: data.message  			
+        			message: Language.getTextByCode(data.message)  			
         		});
         	}
         });

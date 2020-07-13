@@ -71,7 +71,7 @@ class Payment extends Component {
   	getStepContent() {
 		switch (this.state.activeStep) {
 		    case 0:
-		      return <GamePrice next={this.handleNext} game={this.state.game} discount={this.state.discount}/>;
+		      return <GamePrice next={this.handleNext} game={this.state.game} discount={this.state.discount[Language.getLanguage()]}/>;
 		    case 1:
 		      return <CreditCard next={this.handleNext} previous={this.handleBack}/>;
 		    case 2:

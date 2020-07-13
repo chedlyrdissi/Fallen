@@ -15,12 +15,12 @@ import './header.component.css';
 class Header extends Component {
 
 	reload = () => {
-		console.log('reloading');
+		// console.log('reloading');
 		this.forceUpdate();
 	};
 
 	changeLanguage = (e) => {
-		console.log(e.value);
+		// console.log(e.value);
 		Language.setLanguage(e.value);
 		window.location.reload(false);
 	};
@@ -44,7 +44,7 @@ class Header extends Component {
 									<img className="logo" alt="" src="https://cutewallpaper.org/21/gaming-logo-background/Download-for-free-10-PNG-Gamer-logo-transparent-background-.jpg"/>
 								</div>
 								<div className="col-9 website-title pl-3">
-									{Language.getTextByCode('FALLEN')}
+									Fallen
 								</div>
 						</Link>
 					</div>

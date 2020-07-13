@@ -18,14 +18,14 @@ import Payment from './pages/payment';
 class App extends Component {
 
   selectLanguageClick = (e) => {
-    console.log(e.target.getAttribute('value'));
+    // console.log(e.target.getAttribute('value'));
     Language.setLanguage(e.target.getAttribute('value'));
     window.location.reload(false);
   };
 
   render() {
     let list = [];
-    console.log(Language.options);
+    // console.log(Language.options);
     for (let elem of Language.options) {
       list.push(<li className="list-group-item" onClick={this.selectLanguageClick} key={elem.value} value={elem.value}>{elem.label}</li>);
     }

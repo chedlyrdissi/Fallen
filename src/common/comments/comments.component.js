@@ -3,53 +3,11 @@ import React, { Component } from 'react';
 import { Accordion, Card } from 'react-bootstrap';
 
 import Comment from '../comment/comment.component';
-import UserProfile from '../user-profile';
+import CommentForm from '../comment-form/comment-form.component';
 import Language from '../language';
 import './comments.component.css';
 
 class Comments extends Component {
-
-	list = [
-		{
-			id: 'art1.1',
-			username: 'chedli', 
-			comment: 'comment1',
-			replies: [
-				{
-					id: 'art1.1.1',
-					username: 
-					'chedli',
-					comment: 'comment 1.1',
-					replies: []
-				},
-				{
-					id: 'art1.1.2',
-					username: 'chedli',
-					comment: 'comment 1.2',
-					replies: []
-				},	
-			]
-		},
-		{
-			id: 'art1.2',
-			username: 'chedli',
-			comment: 'comment 2',
-			replies: [
-				{
-					id: 'art1.2.1',
-					username: 'chedli',
-					comment: 'comment 2.1',
-					replies: []
-				},
-				{
-					id: 'art1.2.2',
-					username: 'chedli',
-					comment: 'comment 2.2',
-					replies: []
-				},	
-			]
-		}
-	];
 
 	render() {
 		return (
@@ -61,7 +19,12 @@ class Comments extends Component {
 			    	</Accordion.Toggle>
 			    	<Accordion.Collapse eventKey="0">
 			      		<Card.Body>
-			      			<Comment comments={this.list}/>
+			      			<Comment article={this.props.article} comments={this.props.comments}/>
+			      			<div className="container-fluid">
+			      				<div className="row">
+			      					<CommentForm label={'COMMENT'} article={this.props.article} comid={this.props.article + '.' + (this.props.comments.length + 1)}/>
+			      				</div>
+			      			</div>
 			      		</Card.Body>
 			    	</Accordion.Collapse>
 			  	</Card>

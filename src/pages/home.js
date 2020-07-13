@@ -18,7 +18,7 @@ class Home extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch('http://192.168.137.1:4000/home/'+Language.getLanguage(),requestOptions)
+        fetch('http://192.168.137.1:4000/home',requestOptions)
         .then(response => response.json())
         .then((data) => {
         	// console.log(data);

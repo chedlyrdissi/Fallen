@@ -2,37 +2,55 @@
 	{
 		"image": "https://cdn57.androidauthority.net/wp-content/uploads/2020/04/FortNite-Mobile-video-screenshot-Apps-Weekly.jpg",
 		"title": "android",
-		"price": 3.2,
+		"price": {
+			"en": 3.2,
+			"de": 2.15	
+		},
 		"rank": 1
 	},
 	{
 		"image": "https://cdn.vox-cdn.com/thumbor/o4Hw4NAddg6Yx78lDuakly14VRw=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19425214/mobile_MarioKartTour_screen_01.png",
 		"title": "mario",
-		"price": 5.2,
+		"price": {
+			"en": 5.2,
+			"de": 3.38
+		},
 		"rank": 2
 	},
 	{
 		"image": "https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_wired.png,fl_progressive,g_face,h_450,q_80,w_800/v1576859342/wired_top-videogames-in-the-last-50-years.jpg",
 		"title": "doom",
-		"price": 70,
+		"price": {
+			"en": 70,
+			"de": 45.55
+		},
 		"rank": 3
 	},
 	{
 		"image": "https://cdn.vox-cdn.com/thumbor/J7TeX-vsd-iyrQUj4Zj04AJpWv0=/0x0:1024x576/1200x800/filters:focal(431x207:593x369)/cdn.vox-cdn.com/uploads/chorus_image/image/66496903/Switch_PokemonSwordPokemonShield_screen_198.0.jpg",
 		"title": "house",
-		"price": 50,
+		"price": {
+			"en": 50,
+			"de": 32.54
+		},
 		"rank": 4
 	},
 	{
 		"image": "https://static01.nyt.com/images/2018/11/01/technology/personaltech/1techtipART_01/24techtipART_01-superJumbo.jpg",
 		"title": "sonic",
-		"price": 5.2,
+		"price": {
+			"en": 5.2,
+			"de": 3.38
+		},
 		"rank": 5
 	},
 	{
 		"image": "https://localtvwiti.files.wordpress.com/2015/08/s035427928-300.jpg?quality=85&strip=all&resize=1200,1050",
 		"title": "mario boxing",
-		"price": 8,
+		"price": {
+			"en": 8,
+			"de": 5.21			
+		},
 		"rank": 6
 	}
 ]

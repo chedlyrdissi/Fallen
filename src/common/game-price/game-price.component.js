@@ -5,15 +5,16 @@ import Card from 'react-bootstrap/Card';
 import './game-price.component.css';
 
 class GamePrice extends Component {
+  state = {};
   constructor(props) {
     super(props);
-    this.state = {};
-    this.state.game = {
-      image: 'https://cutewallpaper.org/21/gaming-logo-background/Download-for-free-10-PNG-Gamer-logo-transparent-background-.jpg',
-      title: 'game name',
-      price: 15.03
-    };
-    this.state.discount = 5;
+    console.log(this.props.discount);
+    // this.state.game = {
+    //   image: 'https://cutewallpaper.org/21/gaming-logo-background/Download-for-free-10-PNG-Gamer-logo-transparent-background-.jpg',
+    //   title: 'game name',
+    //   price: 15.03
+    // };
+    // this.state.discount = 5;
 
   }
 
@@ -30,13 +31,13 @@ class GamePrice extends Component {
                 {this.props.game.title}
               </div>
               <div className="row center-text mt-3">
-                {this.props.game.price + ' $'}            
+                { (Language.getLanguage() === 'de'? '€ ':'') + this.props.game.price[Language.getLanguage()] + (Language.getLanguage() === 'en'? ' $':'') }            
               </div>
             </div>
             <div className="col-7 self-center">
               <div className="row text-center">
                 <div className="col-7">{Language.getTextByCode('ORIGINAL_PRICE')}</div>
-                <div className="col-5">{this.props.game.price + ' $'}</div>
+                <div className="col-5">{ (Language.getLanguage() === 'de'? '€ ':'') + this.props.game.price[Language.getLanguage()] + (Language.getLanguage() === 'en'? ' $':'') }</div>
               </div>
 
               <div className="row  text-center">
@@ -46,7 +47,7 @@ class GamePrice extends Component {
 
               <div className="row  text-center">
                 <div className="col-7">{Language.getTextByCode('DISCOUNT')}</div>
-                <div className="col-5">{this.props.discount + ' $'}</div>
+                <div className="col-5">{ (Language.getLanguage() === 'de'? '€ ':'') + this.props.discount + (Language.getLanguage() === 'en'? ' $':'') }</div>
               </div>
 
               <hr/>
@@ -58,7 +59,12 @@ class GamePrice extends Component {
 
               <div className="row  text-center">
                 <div className="col-7">{Language.getTextByCode('FINAL_PRICE')}</div>
-                <div className="col-5">{ (( (this.props.game.price - this.props.discount) >= 0 )? (this.props.game.price - this.props.discount): 0)+ ' $'}</div>
+                <div className="col-5">{
+                  ((this.props.game.price[Language.getLanguage()] - this.props.discount) >= 0 )?
+                    (Language.getLanguage() === 'de'? '€ ':'') + (this.props.game.price[Language.getLanguage()] - this.props.discount) + (Language.getLanguage() === 'en'? ' $':'')
+                  :
+                    (Language.getLanguage() === 'de'? '€ ':'') + '0' + (Language.getLanguage() === 'en'? ' $':'')
+                }</div>
               </div>
             </div>
           </div>

@@ -91,38 +91,20 @@ async function translateText(text, language, done){
 }
 
 async function translateTextAndInsert(article){
-    let artEn = readData('articles-en');
-    artEn.push(article);
-
-    let artDe = readData('articles-de');
-    artDe.push(article);
-
-    writeData(artEn, 'articles-en');
-    writeData(artDe, 'articles-de');
-
     var title = article.title;
-
+    var body = article.body;
+    var translated = 0;
+    article.body = {};
     for(let lang of ['en', 'de']) {        
-        translate(article.title, {to: lang}).then(res=>{
-            let articles = readData('articles-'+lang);
-            // console.log(articles);
-            for(let art of articles){
-                if (art.title === title){
-                    art.title = res.text;
-                }
+        translate(body, {to: lang}).then(res=>{
+            article.body[lang] = res.text;
+            translated++;
+            if (translated === 2) {
+                let data = readData('articles');
+                data.push(article);
+                writeData(data, 'articles');
             }
-            writeData(articles, 'articles-'+lang);
-        });
-        translate(article.body, {to: lang}).then(res=>{
-           let articles = readData('articles-'+lang);
-            // console.log(articles);
-            for(let art of articles){
-                if (art.title === title){
-                    art.body = res.text;
-                }
-            }
-            writeData(articles, 'articles-'+lang); 
-        });        
+        });       
     }
 }
 
@@ -137,13 +119,7 @@ function validUser(id) {
 }
 
 function validTitle(title) {
-    const artEn = readData('articles-en');
-    for (let u of artEn) {
-        if (u.title == title) {
-            return false;
-        }
-    }
-    const artDe = readData('articles-de');
+    const artDe = readData('articles');
     for (let u of artDe) {
         if (u.title == title) {
             return false;
@@ -152,6 +128,24 @@ function validTitle(title) {
     return true;
 }
 
+function findCommentBase(base, comments) {
+    // console.log('base');
+    // console.log(base);
+       
+    for(let com of comments) {
+        // console.log(com);
+        if (base === com.id) {
+            // console.log('match');
+            return com;
+        }
+        // console.log('no match');
+        let val = findCommentBase(base, com.replies, "id");
+        if (val) {
+            // console.log('no return');
+            return val;
+        }
+    }
+}
 
 // This is the controler per se, with the get/post
 module.exports = {
@@ -163,27 +157,24 @@ module.exports = {
         // parse application/json
         app.use(bodyParser.json())
 
-        app.get('/home/:language', function(req, res){
+        app.get('/home', function(req, res){
             let data = {};
             data.games = readData('games');
             // console.log(req);
             res.send(data);
         });
 
-        app.get('/search/:title/:language', urlencodedParser, function(req, res){
-            
-            // console.log(req.params.title);
-            // writeData(req, 'method');     
-            // console.log(req.params);       
+        app.get('/search/:title', urlencodedParser, function(req, res){
+ 
             let data = {};
             const title = req.params.title;
             let allGames = readData('games');
-            let allArticles = readData('articles-'+req.params.language);
+            let allArticles = readData('articles');
 
             data.games = allGames;
             if ( title.length !== 0 ){                
                 data.games = data.games.filter(function(item){
-                    return title == item.title;
+                    return title === item.title;
                 }, title);
             }
 
@@ -211,74 +202,45 @@ module.exports = {
             // res.send("works");
         });
 
-        app.get('/article/:title/:language', urlencodedParser, function(req, res){
+        app.get('/article/:title', urlencodedParser, function(req, res){
 
             let title = req.params.title;
             var data = {};
 
-            data.article = getArticleByTitle(title, readData('articles-'+req.params.language));
+            data.article = getArticleByTitle(title, readData('articles'));
 
-            // for (let article of data.article) {
-            //     // translate title
-            //     translateText(article.title, req.params.language, (response) => {
-            //         article.title = response.text;
-            //         done++;
-            //     });
-            //     // translate body
-            //     translateText(article.body, req.params.language, (response) => {
-            //         article.body = response.text;
-            //         done++;
-            //     });                
-            // }
-            if (data.article) {     
-                let transTitle = myTranslateFn(data.article.title, req.params.language);           
-                let transBody = myTranslateFn(data.article.body, req.params.language);           
-                // translate(data.article.title, {to: req.params.language}).then(res=>{
-                    
-                //     data.article.title = res.text;
-
-                //     translate(data.article.body, {to: req.params.language}).then(res=>{
-
-                //         data.article.body = res.text;
-
-                //     }); 
-                // });    
-                // while (typeof transTitle !== 'string' && typeof transBody !== 'string') {
-
-                // }
-                // data.article.title = transTitle;
-                // data.article.body = transBody;
-                data.game = getGameByTitle(data.article.game ,readData('games')); 
-
-                console.log(data);     
-                res.send(data);
-                
-            
-            } else {
-                res.send(data);    
+            if (data.article) {           
+                data.game = getGameByTitle(data.article.game ,readData('games'));
+                data.comments = [];
+                let coms = readData('comments');
+                for (let com of coms) {
+                    if (com.article === req.params.title) {
+                        data.comments = com.comments;
+                    }
+                }             
             }             
+            res.send(data);    
         });
 
         app.post('/log-in', urlencodedParser, (req, res) => {
-            console.log('logging in');
+            // console.log('logging in');
             let user = auth(req.body.username, req.body.password);
             if (user === undefined) {
                 user = {
                     valid: false,
-                    message: 'No such user exists'
+                    message: 'NO_SUCH_USER'
                 };
             } else {
                 user.valid = true;
                 user.password = undefined;
             }
             res.send(user);
-            console.log('logging in');
+            // console.log('logging in');
         });
 
-        app.post('/edit/article/:language/:userId', urlencodedParser, async (req, res) => {
-            console.log(req.body);
-            console.log(req.params);
-            const language = req.params.language;
+        app.post('/edit/article/:userId', urlencodedParser, async (req, res) => {
+            // console.log(req.body);
+            // console.log(req.params);
             const userId = req.params.userId;
             let data = {};
             // get data
@@ -292,23 +254,23 @@ module.exports = {
 
             data.article = newArticle;
 
-            const articles = readData('articles-'+language);
+            const articles = readData('articles');
             const users = readData('users');
 
             if (validUser(userId)) {
                 if(validTitle(newArticle.title)) {
-                    console.log('valid title and user');    
+                    // console.log('valid title and user');    
                     data.valid = true;
                     // translate title
                     translateTextAndInsert(newArticle);
                 } else {
-                    console.log('notvalid');
+                    // console.log('notvalid');
                     data.valid = false;
                     data.titleInvalid = true;
                     data.message = 'TITLE_UNAVAILABLE';                    
                 }
             } else {
-                console.log('notvalid');
+                // console.log('notvalid');
                 data.valid = false;
                 data.message = 'NO_SUCH_USER';
             }
@@ -317,7 +279,7 @@ module.exports = {
         });
 
         app.post('/sign-up', urlencodedParser, (req, res) => {
-            console.log('signing up');
+            // console.log('signing up');
             // console.log(req.body);
             let user = auth(req.body.username, req.body.password, false);
             if ( user ) {
@@ -332,26 +294,90 @@ module.exports = {
                 user.password = undefined;
             }
             res.send(user);
-            console.log('signing up');
+            // console.log('signing up');
         });
 
-        app.post('/comment/:language/:commentId', urlencodedParser, (req, res) => {
-            console.log('signing up');
+        app.post('/comment/:title', urlencodedParser, (req, res) => {
+            // console.log(req.params);
             // console.log(req.body);
-            let user = auth(req.body.username, req.body.password, false);
-            if ( user ) {
-                // user exists
-                user = {
-                    valid: false,
-                    message: 'username is unavailable'
+
+            let data = readData('comments');
+            let comments;
+            let found = false;
+            for(let sec of data) {
+                if (sec.article === req.params.title) {
+                    comments = sec.comments;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                // console.log(comments);
+                let dest;
+                // console.log(req.body.base);
+                // console.log(req.params.title);
+                if (req.body.base !== req.params.title) {
+                    // there's a base
+                    // console.log('base exists');
+                    // console.log(findCommentBase(req.body.base, comments));
+                    findCommentBase(req.body.base, comments).replies.push({
+                        "id": req.body.commentId,
+                        "userId": req.body.id,
+                        "username": req.body.username, 
+                        "comment": req.body.comment,
+                        "replies": []
+                    });
+
+                    for(let sec of data) {
+                        if (sec.article === req.params.title) {
+                            sec.comments = comments;
+                            break;
+                        }
+                    }
+                    writeData(data, 'comments');
+                    // console.log(JSON.stringify(comments));
+                    // writeData(comments, 'comments');
+                    // console.log(dest);
+                } else {
+                    // article comment
+                    comments.push({
+                        "id": req.body.commentId,
+                        "userId": req.body.id,
+                        "username": req.body.username, 
+                        "comment": req.body.comment,
+                        "replies": []
+                    });
+                    for(let sec of data) {
+                        if (sec.article === req.params.title) {
+                            sec.comments = comments;
+                        }
+                    }
+                    writeData(data, 'comments');
+                    // console.log('base doesn\'t exist');
+                    // console.log(comments);                
                 }
             } else {
-                user = addUser(username, password);
-                user.valid = true;
-                user.password = undefined;
+                data.push(
+                    {
+                        article: req.params.title,
+                        comments: [
+                            {
+                                "id": req.body.commentId,
+                                "userId": req.body.id,
+                                "username": req.body.username, 
+                                "comment": req.body.comment,
+                                "replies": []
+                            }
+                        ]
+                    }
+                );
+                writeData(data, 'comments');
             }
-            res.send(user);
-            console.log('signing up');
+
+            // console.log(findCommentBase(req.body.base, comments, (req.body.base.indexOf('.') > 0)? 'id':'title'));
+
+            res.send({});
         });
 
         app.get('/payment/:title', urlencodedParser, function(req, res){
@@ -368,20 +394,8 @@ module.exports = {
             }
 
             let discount = readData('discount');
-            let val = 0;
-            for ( let d of discount ) {
-                if (d.restriction) {
+            data.discount = discount.discount;
 
-                } else {
-                    // console.log(d.discount);
-                    val += d.discount;
-                }
-            }
-
-            data.discount = val;
-
-            // console.log('payment data');
-            // console.log(data);
             res.send(data);
         });
     }
