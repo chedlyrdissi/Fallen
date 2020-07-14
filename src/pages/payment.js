@@ -75,7 +75,7 @@ class Payment extends Component {
 		    case 1:
 		      return <CreditCard next={this.handleNext} previous={this.handleBack}/>;
 		    case 2:
-		      return <PaymentConfirmation previous={this.handleBack} confirm={() => {alert(Language.getTextByCode('CONFIRMED'))}}/>;
+		      return <PaymentConfirmation previous={this.handleBack} confirm={() => {alert(Language.getTextByCode('CONFIRMED')+'\n'+Language.getTextByCode('LICENSE')+': '+this.state.game.license)}}/>;
 		    default:
 		      return Language.getTextByCode('UNKNOWN_STEP');
 		}
@@ -110,7 +110,7 @@ class Payment extends Component {
 					</div>
 				);
 			} else {
-				return (<h3>{Language.getTextByCode('PLEASE_LOG_IN_TO_BUY')}</h3>);
+				return (<h3 className="alert alert-danger">{Language.getTextByCode('PLEASE_LOG_IN_TO_BUY')}</h3>);
 			}
 		}
 	}

@@ -85,9 +85,6 @@ class CreateArticle extends Component {
 
 	title = '';
 
-	click = () => {
-		console.log($("input[name='game'][checked]")[0].getAttribute('value'));
-	};
 
 	render() {
 		let games = [];
@@ -97,9 +94,7 @@ class CreateArticle extends Component {
 
 		if (this.state.loading) {
 			return (<h3>{Language.getTextByCode('LOADING')}</h3>);
-		} else if (this.state.redirect){
-			return (<Redirect to={this.state.redirect} />);
-		} else {
+		}  else {
 			if (UserProfile.isLoggedIn()) {				
 				return (
 					<form method="" action="" onSubmit={this.submitForm}>
@@ -127,7 +122,7 @@ class CreateArticle extends Component {
 									    	</Card.Text>
 										</Card.Body>
 										<Card.Footer>
-									    	<button className="btn btn-outline-primary" onClick={this.click}>{Language.getTextByCode("CREATE")}</button>
+									    	<button className="btn btn-outline-primary">{Language.getTextByCode("CREATE")}</button>
 									    </Card.Footer>
 									</Card>			
 								</div>
@@ -144,3 +139,6 @@ class CreateArticle extends Component {
 
 export default CreateArticle;
 // action={"/article/"+this.title}
+// else if (this.state.redirect){
+// 			return (<Redirect to={this.state.redirect} />);
+// 		}

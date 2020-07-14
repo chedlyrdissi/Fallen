@@ -49,5 +49,7 @@ export default {
 	"TITLE_UNAVAILABLE": "Title unavailable",
 	"NO_SUCH_USER": "No such user exists",
 	"COMMENTS": "Comments",
-	"REPLY": "Reply"
+	"REPLY": "Reply",
+	"LICENSE": "License",
+	"PLEASE_LOG_IN_COMMENT": "Please log in in order to read or write comments"
 };

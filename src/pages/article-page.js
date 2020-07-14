@@ -25,7 +25,7 @@ class ArticlePage extends Component {
         fetch('http://192.168.137.1:4000/article/'+this.props.match.params.title, requestOptions)
         .then(response => response.json())
         .then((data) => {
-        	// console.log(data);
+        	console.log(data);
         	// console.log(data.comments);
         	this.setState({loading: false, game: data.game, article: data.article, comments: data.comments});
         	// this.state.list = data.games;

@@ -6,7 +6,8 @@
 			"en": 3.2,
 			"de": 2.15	
 		},
-		"rank": 1
+		"rank": 1,
+		"license": "license1.1.android"
 	},
 	{
 		"image": "https://cdn.vox-cdn.com/thumbor/o4Hw4NAddg6Yx78lDuakly14VRw=/1400x1400/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/19425214/mobile_MarioKartTour_screen_01.png",
@@ -15,16 +16,18 @@
 			"en": 5.2,
 			"de": 3.38
 		},
-		"rank": 2
+		"rank": 2,
+		"license": "license1.1.mario"
 	},
 	{
-		"image": "https://dwgyu36up6iuz.cloudfront.net/heru80fdn/image/upload/c_fill,d_placeholder_wired.png,fl_progressive,g_face,h_450,q_80,w_800/v1576859342/wired_top-videogames-in-the-last-50-years.jpg",
+		"image": "https://store-images.s-microsoft.com/image/apps.55563.14303655336501012.2beb08d9-395e-453b-b5e3-0d4ac24d9d15.f9a0e430-b546-45f8-85f1-1d2b90bb84d5?mode=scale&q=90&h=1080&w=1920",
 		"title": "doom",
 		"price": {
 			"en": 70,
 			"de": 45.55
 		},
-		"rank": 3
+		"rank": 3,
+		"license": "license1.1.doom"
 	},
 	{
 		"image": "https://cdn.vox-cdn.com/thumbor/J7TeX-vsd-iyrQUj4Zj04AJpWv0=/0x0:1024x576/1200x800/filters:focal(431x207:593x369)/cdn.vox-cdn.com/uploads/chorus_image/image/66496903/Switch_PokemonSwordPokemonShield_screen_198.0.jpg",
@@ -33,7 +36,8 @@
 			"en": 50,
 			"de": 32.54
 		},
-		"rank": 4
+		"rank": 4,
+		"license": "license1.1.house"
 	},
 	{
 		"image": "https://static01.nyt.com/images/2018/11/01/technology/personaltech/1techtipART_01/24techtipART_01-superJumbo.jpg",
@@ -42,7 +46,8 @@
 			"en": 5.2,
 			"de": 3.38
 		},
-		"rank": 5
+		"rank": 5,
+		"license": "license1.1.sonic"
 	},
 	{
 		"image": "https://localtvwiti.files.wordpress.com/2015/08/s035427928-300.jpg?quality=85&strip=all&resize=1200,1050",
@@ -51,6 +56,18 @@
 			"en": 8,
 			"de": 5.21			
 		},
-		"rank": 6
+		"rank": 6,
+		"license": "license1.1.mario-boxing"
+	},
+	{
+		"image": "https://static.makeuseof.com/wp-content/uploads/2019/10/old-games-remakes-994x400.jpg",
+		"title": "crash",
+		"price": {
+			"en": 8,
+			"de": 5.21			
+		},
+		"rank": 7,
+		"license": "license1.1.crash"
+		
 	}
 ]

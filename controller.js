@@ -262,6 +262,7 @@ module.exports = {
                     // console.log('valid title and user');    
                     data.valid = true;
                     // translate title
+                    newArticle.title = newArticle.title.trim();
                     translateTextAndInsert(newArticle);
                 } else {
                     // console.log('notvalid');

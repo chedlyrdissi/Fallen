@@ -41,8 +41,9 @@ class App extends Component {
                   <Route exact path={'/edit/article'} component={CreateArticle}/>
                   <Route exact path={'/payment/:title'} component={Payment}/>
                   <Route exact path={'/search/:title'} component={Search}/>
-                  <Route path='*' exact={true}/>
-                  <Redirect from='*' to='/' />
+                  <Route path='*' exact={true}>
+                    <Redirect from='*' to='/' />
+                  </Route>
                 </Switch>
               </div>
             </div>
