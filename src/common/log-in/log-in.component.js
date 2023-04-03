@@ -43,7 +43,7 @@ class LogIn extends Component {
 	        	language: Language.getLanguage()
 	        })
     	};
-        fetch('http://localhost:4000/log-in',requestOptions)
+        fetch(`${process.env.API_URL}/log-in`,requestOptions)
         .then(response => response.json())
         .then((data) => {
         	console.log(data);

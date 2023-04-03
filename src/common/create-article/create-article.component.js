@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import TextField from '@material-ui/core/TextField';
-import { Redirect } from "react-router-dom";
 import $ from 'jquery';
 import Language from '../language';
 import UserProfile from '../user-profile';
@@ -23,7 +22,7 @@ class CreateArticle extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch('http://localhost:4000/home', requestOptions)
+        fetch(`${process.env.API_URL}/home`, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	this.setState({loading: false, games: data.games});
@@ -61,7 +60,7 @@ class CreateArticle extends Component {
 	        })
     	};
 
-		fetch('http://localhost:4000/edit/article/'+UserProfile.getUser().id, requestOptions)
+		fetch(`${process.env.API_URL}/edit/article/${UserProfile.getUser().id}`, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	console.log(data);
@@ -138,7 +137,3 @@ class CreateArticle extends Component {
 }
 
 export default CreateArticle;
-// action={"/article/"+this.title}
-// else if (this.state.redirect){
-// 			return (<Redirect to={this.state.redirect} />);
-// 		}

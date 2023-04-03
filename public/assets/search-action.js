@@ -20,7 +20,7 @@ $(document).ready(function(){
           method: 'POST',
           body: ''
       };
-        fetch('http://192.168.137.1:4000/search',requestOptions)
+        fetch(`${process.env.API_URL}/search`,requestOptions)
         .then(response => response.json())
         .then((data) => {
           console.log(data);

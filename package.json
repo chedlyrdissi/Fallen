@@ -2,20 +2,16 @@
   "name": "fallen",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
-    "@google-cloud/translate": "^6.0.1",
     "@material-ui/core": "^4.11.0",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "@vitalets/google-translate-api": "^3.0.0",
     "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
     "bootstrap": "^4.5.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
     "inputmask": "^5.0.3",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
@@ -32,8 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start:prod": "serve -s build"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -22,7 +22,7 @@ class ArticlePage extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch('http://192.168.137.1:4000/article/'+this.props.match.params.title, requestOptions)
+        fetch(`${process.env.API_URL}/article/${this.props.match.params.title}`, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	console.log(data);

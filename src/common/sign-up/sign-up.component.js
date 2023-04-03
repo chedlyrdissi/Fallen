@@ -42,7 +42,7 @@ class SignUp extends Component {
 	        	language: Language.getLanguage()
 	        })
     	};
-        fetch('http://localhost:4000/sign-up',requestOptions)
+        fetch(`${process.env.API_URL}/sign-up`,requestOptions)
         .then(response => response.json())
         .then((data) => {
         	if ( data.valid ) {

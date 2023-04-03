@@ -21,7 +21,7 @@ class Search extends Component {
 	        	language: Language.getLanguage()
 	        }
 	    };
-	    fetch('http://192.168.137.1:4000/search/'+this.props.match.params.title, requestOptions)
+	    fetch(`${process.env.API_URL}/search/${this.props.match.params.title}`, requestOptions)
 	    .then(response => response.json())
 	    .then((data) => {
 	    	// console.log(data);
