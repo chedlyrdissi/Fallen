@@ -22,7 +22,7 @@ class ArticlePage extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch(`${process.env.API_URL}/article/${this.props.match.params.title}`, requestOptions)
+        fetch(`fallen-api/article/${this.props.match.params.title}`, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	console.log(data);

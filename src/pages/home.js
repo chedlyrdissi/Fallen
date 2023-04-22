@@ -18,7 +18,7 @@ class Home extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch(`${process.env.API_URL}/home`,requestOptions)
+        fetch(`fallen-api/home`,requestOptions)
         .then(response => response.json())
         .then((data) => {
         	// console.log(data);

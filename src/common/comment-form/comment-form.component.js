@@ -35,7 +35,7 @@ class CommentForm extends Component {
 	        	username: UserProfile.getUser().username
 	        })
     	};
-        fetch(`${process.env.API_URL}/comment/${this.props.article}`, requestOptions)
+        fetch(`fallen-api/comment/${this.props.article}`, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	// this.setState({});

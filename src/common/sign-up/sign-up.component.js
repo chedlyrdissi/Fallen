@@ -42,7 +42,7 @@ class SignUp extends Component {
 	        	language: Language.getLanguage()
 	        })
     	};
-        fetch(`${process.env.API_URL}/sign-up`,requestOptions)
+        fetch(`fallen-api/sign-up`,requestOptions)
         .then(response => response.json())
         .then((data) => {
         	if ( data.valid ) {

@@ -38,7 +38,7 @@ class GameGallery extends Component {
 					<div className="row">
 						<div className="col-1 my-auto">
 							{(this.props.list.length > 3) ?
-								(<img id="prevIcon" alt="" className="gallery-icon" onClick={this.previous} src="/resources/arrow-left.png" />)
+								(<img id="prevIcon" alt="" className="gallery-icon" onClick={this.previous} src="/fallen/resources/arrow-left.png" />)
 								: ''}
 						</div>
 						<div className="col-10">
@@ -66,7 +66,7 @@ class GameGallery extends Component {
 						</div>
 						<div className="col-1 my-auto">
 							{(this.props.list.length > 3) ?
-							<img id="nextIcon" alt="" className="gallery-icon" onClick={this.next} src="/resources/arrow-right.png" />
+							<img id="nextIcon" alt="" className="gallery-icon" onClick={this.next} src="/fallen/resources/arrow-right.png" />
 							: ''}
 						</div>
 					</div>

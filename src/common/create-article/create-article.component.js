@@ -22,7 +22,7 @@ class CreateArticle extends Component {
 	        	language: Language.getLanguage()
 	        }
     	};
-        fetch(`${process.env.API_URL}/home`, requestOptions)
+        fetch(`fallen-api/home`, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	this.setState({loading: false, games: data.games});
@@ -60,7 +60,7 @@ class CreateArticle extends Component {
 	        })
     	};
 
-		fetch(`${process.env.API_URL}/edit/article/${UserProfile.getUser().id}`, requestOptions)
+		fetch(`fallen-api/edit/article/${UserProfile.getUser().id}`, requestOptions)
         .then(response => response.json())
         .then((data) => {
         	console.log(data);

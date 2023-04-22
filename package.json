@@ -2,7 +2,7 @@
   "name": "fallen",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "fallen",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@react-navigation/native": "^5.6.1",

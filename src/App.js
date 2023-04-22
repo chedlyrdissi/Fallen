@@ -30,7 +30,7 @@ class App extends Component {
       list.push(<li className="list-group-item" onClick={this.selectLanguageClick} key={elem.value} value={elem.value}>{elem.label}</li>);
     }
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="fallen">
         { (Language.getLanguage())?  
             <div>
               <Header className=""/>

@@ -20,7 +20,7 @@ $(document).ready(function(){
           method: 'POST',
           body: ''
       };
-        fetch(`${process.env.API_URL}/search`,requestOptions)
+        fetch(`fallen-api/search`,requestOptions)
         .then(response => response.json())
         .then((data) => {
           console.log(data);

@@ -44,7 +44,7 @@ class Payment extends Component {
 	        	language: Language.getLanguage()
 	        }
 	    };
-	    fetch(`${process.env.API_URL}/payment/${this.props.match.params.title}`, requestOptions)
+	    fetch(`fallen-api/payment/${this.props.match.params.title}`, requestOptions)
 	    .then(response => response.json())
 	    .then((data) => {
 	    	console.log(data);
